@@ -1,6 +1,6 @@
 ---
 title: TrumpTweets 
-layout: layout/_template
+layout: _layouts/default.html
 filename: index.md
 --- 
 
