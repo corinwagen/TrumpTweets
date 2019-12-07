@@ -8,10 +8,6 @@ filename: index.md
 
 *investigating the impact of Donald J. Trump's tweets on global markets*
 
-{% for page in site.pages %}
-    <a href={{ page.filename }}>{{ page.title }}</a>
-{% endfor %}
-
 ### Data
 
 ### Analysis
