@@ -1,3 +1,9 @@
+---
+title: TrumpTweets 
+layout: layout/_template
+filename: index.md
+--- 
+
 # TrumpTweets:
 *investigating the impact of Donald J. Trump's tweets on global markets*
 
