@@ -16,16 +16,16 @@
       
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Home</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Data</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Models</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="#">Analysis</a>
           </li>
         </ul>
@@ -33,22 +33,17 @@
     </nav>
     
     <div class="wrapper">
-      <section>
+      <section class="container">
 
       {{ content }}
 
       </section>
       <footer class="footer">
         <span class="text-muted">
-            {% if site.github.is_project_page %}
-            <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-            {% endif %}
-            
-            {% if site.github.is_project_page %}
-            <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub: {{ site.github.repository_nwo }}</a></p>
-            {% endif %}
-
-            <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+          <small>
+            <a href="{{ site.github.repository_url }}">View the Project on GitHub: {{ site.github.repository_nwo }}</a>
+            Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>
+          </small>
         </span>
       </footer>
     </div>
