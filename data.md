@@ -4,20 +4,20 @@ layout: default
 filename: data.md
 --- 
 
-### Contents:
+#### Contents:
  
- - [Tweets](#tweets)
- - [Stocks](#stocks)
- - [Bonds](#bonds)
- - [Other](#other)
+ - [Tweets](#tweet)
+ - [Stocks](#stock)
+ - [Bonds](#bond)
+ - [Other](#other-anchor)
 
 
-### Tweets: 
-
+#### Tweets: 
+<a name="tweet" class="anchor"> </a>
 Tweets were downloaded from the [Trump Twitter Archive](http://www.trumptwitterarchive.com/archive) and analyzed using the Jupyter notebook `tweets/parse_tweets.ipynb`. 
 Only tweets between January 20th, 2017 and October 30th, 2019 were selected, which led to 11,717 entries. 
 
-#### Simple Tweet Predictors:
+##### Simple Tweet Predictors:
 
 Most metadata were collected automatically through the Trump Twitter Archive, but some (`num_mentions`, `num_retweets`) had to be collected in Python. 
 The tweet text was then sanitized for downstream analysis by removing Twitter-specific marks (e.g. “@”, “#” to denote mentions and hashtags, respectively) and HTML entities (`&amp;`). 
@@ -41,7 +41,7 @@ The current keywords show a relatively small degree of multicollinearity, which 
 
 **Figure 3**: Correlation matrix for keyword and metadata predictors.
 
-#### Natural Language Modelling of Tweets:
+##### Natural Language Modelling of Tweets:
 
 As Twitter text is informal and limited in the number of characters, it lends itself to usage of many, and likely rapidly changing, abbreviations and societal references. 
 Many such abbreviations, if we can pick them out, could be quite useful in building a keyword search. 
@@ -50,7 +50,7 @@ This motivates the use of two different types of models:
 (1) topic models, which aim to find groups of words that form recurring ‘topics’ in the particular set of tweets, as well as 
 (2) word embeddings, which assume that high-dimensional word space can be projected onto a lower-dimensional manifold, such that related words lie close to one another in lower-dimensional space.
 
-##### Word Embeddings:
+###### Word Embeddings:
 
 As previously discussed, using keywords informed by domain knowledge will likely be helpful for our prediction task; 
 however, it might not be feasible to come up with an exhaustive list of all keywords that might be used in any text. 
@@ -75,8 +75,7 @@ with more time, it might be advantageous to train a skipgram on a large corpus o
 
 **Figure 5**: Distribution of cosine similarities between each keywords and each word in tweets (left) and proportion of tweets with cosine similarity between a keyword and a word in the tweet such that the similarity is above a particular threshold (i.e., the tweet is “activated” by at least one keyword) (right).
 
-
-##### Topic Modelling:
+###### Topic Modelling:
 
 To further explore recurrent themes in the tweets, we investigated collections of words in the tweets with [topic modeling](http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf). 
 Briefly, a topic model models a document as a distribution over topics, and models a topic as a distribution over words, enabling investigation of recurrent patterns of words in multiple documents. 
@@ -108,7 +107,8 @@ To address this, we will investigate a model that combines topic modeling with w
 **Figure 7**: Tweet word count for tweets classified as each of 20 different dominant topics
 
 
-### Stocks:
+#### Stocks:
+<a name="stock" class="anchor"> </a>
 
 Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
 We put together a simple response variable that was an average of the following stocks after a transformation: BZUN, BABA, MOMO, PDD. 
@@ -128,7 +128,8 @@ We plan to make more combinations of stocks to improve and vary this response va
 **Figure 8**: Aggregate Chinese stock data
 
 
-### Bonds:
+#### Bonds:
+<a name="bond" class="anchor"> </a>
 
 We downloaded US bond data for varying time cycles directly from Yahoo Finance. 
 The resulting data (which had many missing values) was imported in R and cleaned using `na.approx` from the `zoo` package.
@@ -143,7 +144,8 @@ To arrive at a rough measure of volatility, we took the difference between the h
 **Figure 9**: Daily delta for 10 year US Treasury bonds.
 
 
-### Other:
+#### Other:
+<a name="other-anchor" class="anchor"> </a>
 
 In addition to stocks and bonds, we will also investigate the effect of the tweets on other potentially relevant economic responses: 
 gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 10).
