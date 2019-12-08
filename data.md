@@ -4,15 +4,7 @@ layout: default
 filename: data.md
 --- 
 
-#### Contents:
- 
- - [Tweets](#tweet)
- - [Stocks](#stock)
- - [Bonds](#bond)
- - [Other](#other-anchor)
-
-
-#### Tweets: <a name="tweet" class="anchor"> </a>
+#### Tweets: 
 Tweets were downloaded from the [Trump Twitter Archive](http://www.trumptwitterarchive.com/archive) and analyzed using the Jupyter notebook `tweets/parse_tweets.ipynb`. 
 Only tweets between January 20th, 2017 and October 30th, 2019 were selected, which led to 11,717 entries. 
 
@@ -106,7 +98,7 @@ To address this, we will investigate a model that combines topic modeling with w
 **Figure 7**: Tweet word count for tweets classified as each of 20 different dominant topics
 
 
-#### Stocks: <a name="stock" class="anchor"> </a>
+#### Stocks:
 
 Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
 We put together a simple response variable that was an average of the following stocks after a transformation: BZUN, BABA, MOMO, PDD. 
@@ -126,7 +118,7 @@ We plan to make more combinations of stocks to improve and vary this response va
 **Figure 8**: Aggregate Chinese stock data
 
 
-#### Bonds: <a name="bond" class="anchor"> </a>
+#### Bonds:
 
 We downloaded US bond data for varying time cycles directly from Yahoo Finance. 
 The resulting data (which had many missing values) was imported in R and cleaned using `na.approx` from the `zoo` package.
@@ -141,7 +133,7 @@ To arrive at a rough measure of volatility, we took the difference between the h
 **Figure 9**: Daily delta for 10 year US Treasury bonds.
 
 
-#### Other: <a name="other-anchor" class="anchor"> </a>
+#### Other:
 
 In addition to stocks and bonds, we will also investigate the effect of the tweets on other potentially relevant economic responses: 
 gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 10).

@@ -7,16 +7,6 @@ body {
   margin-bottom: 60px; /* Margin bottom by footer height */
 }
 
-h4 { 
-  position: relative;
-}
-
-a.anchor {
-  position: absolute;
-  left: 0px;
-  top: -60px;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
