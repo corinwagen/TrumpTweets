@@ -4,7 +4,7 @@ layout: default
 filename: data.md
 --- 
 
-### Data:
+### Contents:
  
  - [Tweets](#tweets)
  - [Stocks](#stocks)
@@ -73,4 +73,78 @@ with more time, it might be advantageous to train a skipgram on a large corpus o
 ![](assets/img/image7.png)
 
 **Figure 5**: Distribution of cosine similarities between each keywords and each word in tweets (left) and proportion of tweets with cosine similarity between a keyword and a word in the tweet such that the similarity is above a particular threshold (i.e., the tweet is “activated” by at least one keyword) (right).
+
+
+##### Topic Modelling:
+
+To further explore recurrent themes in the tweets, we investigated collections of words in the tweets with [topic modeling](http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf). 
+Briefly, a topic model models a document as a distribution over topics, and models a topic as a distribution over words, enabling investigation of recurrent patterns of words in multiple documents. 
+The model employs a Latent Dirichlet Allocation algorithm, which is a matrix factorization approach to solving for the most likely Document-Topic and Topic-Word assignment matrices. 
+This model is implemented in the Python `gensim` library.
+
+We performed topic modeling on the text in the tweets, and aim to use topic information to help improve model predictions. 
+First, we modeled all the text in the tweets, including stop words, prepositions, and “to be” verbs. 
+Many of the resultant topics (not shown) were collections of prepositions and “to be” verbs, so a second model was built after removing these tokens. 
+A model with 20 topics and the top 5 words that contribute to the particular topic are shown in Figure 6. 
+Each tweet was then scored by topic, and tweets were grouped by “dominant topic” (i.e. the topic with the highest likelihood of being associated to the tweet). 
+Next, we asked whether different topics were represented in substantially different types of tweets. 
+Considering only the tweet length (number of words), topics whose most likely/explanatory word had a high coefficient tended to have a smaller number of words per tweet (e.g. topic 0) 
+than those whose most likely word had a low coefficient (e.g. topic 16) (Figure 7). 
+This makes sense, because some small groups of words, like “great”, “america”, “again”, and “make”, actually comprise a slogan/idea--topic 0 is “Make America Great Again”. 
+However, other more complex topics have a more even distribution over words.
+
+We intend in the next model iteration(s) to use these topic modeling results, either by directly scoring tweets or by using the topics to expand our keyword approach. 
+A clear limitation of the topic model is highlighted in the previous subsection on word embeddings: 
+the basic topic model has no way of capitalizing on synonymous words that might appear equally frequently in the same topics. 
+To address this, we will investigate a model that combines topic modeling with word embedding (an [Embedded Topic Model](https://arxiv.org/pdf/1907.04907.pdf)).
+
+![](assets/img/image2.png)
+
+**Figure 6**: The top 5 contributing words to each of 20 topics in the topic model without stop words, prepositions, and “to be” verbs. Some of the topics are parts of or entire coherent ideas.
+
+![](assets/img/image11.png)
+
+**Figure 7**: Tweet word count for tweets classified as each of 20 different dominant topics
+
+### Stocks:
+
+Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
+We put together a simple response variable that was an average of the following stocks after a transformation: BZUN, BABA, MOMO, PDD. 
+They were selected because of [this article](https://www.investors.com/market-trend/stock-market-today/stock-market-rips-higher-trade-optimism-chinese-stocks-make-big-moves/). 
+They are all supposedly highly correlated with the trade war.
+
+We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
+It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
+We took the log of stock prices, and then averaged the resulting standardized normal normal data to produce a response variable. 
+That is shown below (Figure 8) where the line in black is the average of the stocks. 
+This linear combination makes sense because a linear combination of normal random variables is also normal.
+
+We plan to make more combinations of stocks to improve and vary this response variable in the next stage of the project. We will also look at US superconductor stocks and farm stocks which are affected by the trade war as well.
+
+![](assets/img/image9.png)
+
+**Figure 8**: Aggregate Chinese stock data
+
+### Bonds:
+
+We downloaded US bond data for varying time cycles directly from Yahoo Finance. 
+The resulting data (which had many missing values) was imported in R and cleaned using `na.approx` from the `zoo` package.
+This was done in RMD but we plan to convert the scripts to Python code for the next stage of the project.
+We will also train on a new response variable: 
+the yield curve (which we will calculate as the difference between the 10 year and two year US bond interest rates and is seen as presaging recession).
+
+To arrive at a rough measure of volatility, we took the difference between the highest and lowest value each day (for 10 year US Treasury bonds) (Figure 9).
+
+![](assets/img/image5.png)
+
+**Figure 9**: Daily delta for 10 year US Treasury bonds.
+
+### Other:
+
+In addition to stocks and bonds, we will also investigate the effect of the tweets on other potentially relevant economic responses: 
+gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 10).
+
+![](assets/img/image10.png)
+
+**Figure 10**: Foreign exchange rates.
 
