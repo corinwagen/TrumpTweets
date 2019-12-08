@@ -11,6 +11,7 @@ filename: data.md
  - [Bonds](#bonds)
  - [Other](#other)
 
+
 ### Tweets: 
 
 Tweets were downloaded from the [Trump Twitter Archive](http://www.trumptwitterarchive.com/archive) and analyzed using the Jupyter notebook `tweets/parse_tweets.ipynb`. 
@@ -106,6 +107,7 @@ To address this, we will investigate a model that combines topic modeling with w
 
 **Figure 7**: Tweet word count for tweets classified as each of 20 different dominant topics
 
+
 ### Stocks:
 
 Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
@@ -121,9 +123,10 @@ This linear combination makes sense because a linear combination of normal rando
 
 We plan to make more combinations of stocks to improve and vary this response variable in the next stage of the project. We will also look at US superconductor stocks and farm stocks which are affected by the trade war as well.
 
-![](assets/img/image9.png)
+![](assets/img/image9.png){:width="800px"}
 
 **Figure 8**: Aggregate Chinese stock data
+
 
 ### Bonds:
 
@@ -138,6 +141,7 @@ To arrive at a rough measure of volatility, we took the difference between the h
 ![](assets/img/image5.png)
 
 **Figure 9**: Daily delta for 10 year US Treasury bonds.
+
 
 ### Other:
 
