@@ -15,5 +15,11 @@ filename: index.md
 
 Final project page for CS 209A (Harvard University, Fall 2019). 
 
+The big questions we want to answer are:
+
+1. How do the tweets of Donald Trump impact market confidence, as demonstrated through stock, bond, and commodity prices?
+
+1. How do Trump's tweets about foreign and domestic policy impact domestic and foreign market indices? 
+
 
 *Corin Wagen, Priya Veeraraghavan, Aaron Jacobson, and Hayden Joy*
