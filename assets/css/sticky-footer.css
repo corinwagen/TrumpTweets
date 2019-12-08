@@ -2,9 +2,9 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
-    margin-top: 180px; /* cuz of top navbar */
-    margin-bottom: 60px; /* Margin bottom by footer height */
+  margin-bottom: 60px; /* Margin bottom by footer height */
 }
 
 .anchor a {
