@@ -4,18 +4,10 @@ layout: default
 filename: index.md
 --- 
 
-# TrumpTweets:
+## TrumpTweets:
 
 *investigating the impact of Donald J. Trump's tweets on global markets*
 
-### Data
-
-### Analysis
-
-### Models
-
-### Future Work
-
-*CS 209A &mdash; Harvard University, 2019* 
+Final project page for CS 209A (Harvard University, Fall 2019). 
 
 *Corin Wagen, Priya Veeraraghavan, Aaron Jacobson, and Hayden Joy*
