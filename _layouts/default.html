@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> {{site.title | default: site.github.repository_name}} </title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel='stylesheet' type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel='stylesheet' type="text/css" href="assets/css/sticky-footer.css">
+    {% seo %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="index.html">{{ site.title }}</a>
+      
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="data.html">Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="models.html">Models</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="analysis.html">Analysis</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="future_work.html">Future Work</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <br />
+    <br />
+    <div class="container">
+      <div>
+        <br />
+        <br />
+        {{ content }}
+        <br />
+        <br />
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="text-muted">
+        <small>
+          <span> &nbsp;&nbsp;&nbsp;&nbsp;View the project on GitHub: <a href="{{ site.github.repository_url }}">{{ site.github.repository_nwo }}</a></span>
+          <span style="float:right"> Hosted on GitHub Pages&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </small>
+      </span>
+    </footer>
+  </body>
+</html>
