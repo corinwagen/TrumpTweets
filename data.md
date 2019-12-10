@@ -97,6 +97,9 @@ To address this, we will investigate a model that combines topic modeling with w
 
 **Figure 7**: Tweet word count for tweets classified as each of 20 different dominant topics
 
+##### Sentiment Analysis: 
+
+Using 
 
 #### Stocks:
 
