@@ -4,9 +4,7 @@ layout: default
 filename: models.md
 --- 
 
-#### Models: 
-
-##### Model Architecture:
+##### Initial Model Architecture:
 
 Attempts to fit simple tree-based models (e.g. Random Forest) to stock and bond data were almost totally ineffective. 
 
@@ -28,10 +26,10 @@ additionally, early stopping was found to be beneficial.
 
 After 200 epochs of training, the neural network 
 
-![]('assets/img/initial_model_pred.png')
+![](assets/img/initial_model_pred.png)
 
 **Figure 1**: Initial Predictions for Test Set and Training Set
 
-![]('assets/img/initial_model_loss.png')
+![](assets/img/initial_model_loss.png)
 
 **Figure 2**: Model Performance By Epoch
