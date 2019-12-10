@@ -207,7 +207,7 @@ if model_type == 'classifier':
     y_pred_keras = best_model.predict(Xt).ravel()
     fpr_keras, tpr_keras, thresholds_keras = roc_curve(yt, y_pred_keras)
     auc_keras = auc(fpr_keras, tpr_keras)
-    print(auc_keras)
+    print("Performance: AUC {}, training_accuracy {}, validation_accuracy {}".format(auc_keras, training_acc, validation_acc))
     ax[1].plot(fpr_keras, tpr_keras)
     ax[1].set_title('AUC: {}'.format(auc_keras))
     ax[1].set_ylabel('True Positive Rate')
@@ -235,7 +235,7 @@ else:
     sorted_vals = np.sort(rand_vals)
     
     ttest_t, ttest_pval = sp.stats.ttest_1samp(sorted_vals, test_loss)
-    
+    print("Performance: tstat {}, pval {}, training_loss {}, validation_loss {}, test_loss {}, random5pc_loss {}, random_mean {}, random95pc_loss {}".format(ttest_t, ttest_pval, training_loss, validation_loss, test_loss, sorted_vals[5], np.mean(rand_vals), sorted_vals[95]))    
     ax[0].set_title('Training and validation performance\n Training loss: {0:.6f}, Validation loss: {1:.6f}, Test loss {2:.6f}\nRandomized 5%: {3:.6f}, mean: {4:.6f}, 95%: {5:.6f}\nT-test Statistic: {6:.6f} and p-value: {7:.6f}'.format(training_loss, validation_loss, test_loss, sorted_vals[5], np.mean(rand_vals), sorted_vals[95], ttest_t, ttest_pval)) 
     
     # 
