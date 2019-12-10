@@ -1,4 +1,4 @@
-Date_,retweet_count_sum,favorite_count_sum,is_retweet_sum,num_words_sum,num_hashtags_sum,num_mentions_sum,year_sum,month_sum,hour_sum,minute_sum
+Date,retweet_count_sum,favorite_count_sum,is_retweet_sum,num_words_sum,num_hashtags_sum,num_mentions_sum,year_sum,month_sum,hour_sum,minute_sum
 2017-01-20,362593,1588729,1588729,181.0,3.0,0.0,22187.0,11.0,184.0,472.0
 2017-01-21,103818,467521,467521,67.0,0.0,2.0,6051.0,3.0,38.0,163.0
 2017-01-22,184236,949408,949408,91.0,0.0,0.0,8068.0,4.0,50.0,156.0
