@@ -38,7 +38,7 @@ After 200 epochs of training, the neural network was found to consistently outpe
 
 Permutation importance analysis of the initial model (using `eli5`) revealed that the most important tweets were those referring to the Ukraine/impeachment scandal. 
 
-![](assets/img/initial_model_importance.png){:height="550px"}
+![](assets/img/initial_model_importance.png){:height="350px"}
 
 **Figure 3**: Most Important Predictors For Initial Model
 
