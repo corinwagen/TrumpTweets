@@ -31,7 +31,7 @@ for predictor in predictors:
             for model_type in model_types:
                config = { "model_name" : "model_{}".format(i),
                           "predictors" : [[predictor, predictor_lookback]],
-               "augment": { 
+               "augment": {
                             "n": 50,
                             "stdev": 0.2
                           },
@@ -46,12 +46,12 @@ for predictor in predictors:
                                 "nodes_per_layer": nodes_per_layer[0],
                                 "model_type": model_type
                                },
-               "training_params" : { 
+               "training_params" : {
                                 "epochs" : epochs[0]
                                  }
                         }
                with open("model_{}.json".format(i), 'w') as fp:
                    json.dump(config, fp)
-               print(["model_{}.json".format(i), predictor, predictor_lookback, response_lookback, dropout_pct, model_type, responses[0], response_columns, n_layers[0], nodes_per_layer[0], epochs[0]])  
+               print(["model_{}.json".format(i), predictor, predictor_lookback, response_lookback, dropout_pct, model_type, responses[0], response_columns, n_layers[0], nodes_per_layer[0], epochs[0]])
                i += 1
-        
+

@@ -24,7 +24,7 @@ args = parser.parse_args()
 
 with open(args.config, 'r') as infile:
     config = json.load(infile)
-   
+
 print(config)
 
 model_name = config['model_name']
@@ -89,9 +89,9 @@ response_df.columns = ['response', 'Date']
 if response_lookback > 0:
     lookback_pred = add_lookback_predictors(response_df, response_lookback, include_today=False)
     response_df = pd.merge(right=response_df, left=lookback_pred, on='Date')
-    
+
 print(response_df.head())
-    
+
 # if classifier, change response variable
 if model_type == 'classifier':
     response_df['response'] = response_df.apply(lambda x: 1 if x.response > 0 else 0, axis=1)
@@ -131,7 +131,7 @@ def create_model(n_predictors, dropout_pct=0, n_layers=3, nodes_per_layer=32, mo
 
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Dropout(dropout_pct, input_shape=(n_predictors,)))
-       
+
     # add densely connected layers
     for l in range(n_layers):
         model.add(tf.keras.layers.Dense(nodes_per_layer, activation='relu'))
@@ -140,7 +140,6 @@ def create_model(n_predictors, dropout_pct=0, n_layers=3, nodes_per_layer=32, mo
     #  output layer
     if model_type == 'classifier':
         model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-
 
         # compile the model with adam optimizer and binary cross entropy loss
         model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -153,31 +152,30 @@ def create_model(n_predictors, dropout_pct=0, n_layers=3, nodes_per_layer=32, mo
         filepath="results/" + model_name + "/weights-improvement-{epoch:02d}-{val_loss:.2f}.hdf5"
         checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
 
-    
+
     return(model, checkpoint)
 
 # create the model
-model, checkpoint = create_model(X.shape[1], 
-                                 dropout_pct=dropout_pct, 
+model, checkpoint = create_model(X.shape[1],
+                                 dropout_pct=dropout_pct,
                                  n_layers=n_layers,
                                  nodes_per_layer=nodes_per_layer,
                                  model_type=model_type)
-                         
 
 history = model.fit(X, y, epochs=epochs, batch_size=128, verbose=1, callbacks=[checkpoint], validation_split=0.3)
-                                
+
 if model_type == 'classifier':
     best_epoch = np.argmax(history.history['val_accuracy']) + 1
     best_score = np.max(history.history['val_accuracy'])
-    
+
 else:
     best_epoch = np.argmin(history.history['val_loss']) + 1
     best_score = np.min(history.history['val_loss'])
-    
+
 best_model_path = "results/" + model_name + "/weights-improvement-{0:02d}-{1:.2f}.hdf5".format(best_epoch, best_score)
-    
-best_model, _ = create_model(X.shape[1], 
-                                 dropout_pct=dropout_pct, 
+
+best_model, _ = create_model(X.shape[1],
+                                 dropout_pct=dropout_pct,
                                  n_layers=n_layers,
                                  nodes_per_layer=nodes_per_layer,
                                  model_type=model_type)
@@ -187,19 +185,19 @@ best_model.load_weights(best_model_path)
 figure, ax = plt.subplots(1, 2, figsize=(20,7))
 
 if model_type == 'classifier':
-    
+
     # Training plot
     ax[0].plot(range(len(history.history['accuracy'])), history.history['accuracy'], c='blue', label='Training Accuracy')
     ax[0].plot(range(len(history.history['val_accuracy'])), history.history['val_accuracy'], c='red', label='Validation Accuracy')
     ax[0].set_ylabel('Accuracy')
     ax[0].set_xlabel('Epoch')
     ax[0].legend()
-    
+
     training_acc = history.history['accuracy'][best_epoch - 1]
     validation_acc = history.history['val_accuracy'][best_epoch - 1]
-    
+
     ax[0].set_title('Training and validation performance\n Training Accuracy: {}, Validation Accuracy: {}'.format(training_acc, validation_acc))        
-    
+
     # AUC score
     pred_y = best_model.predict(X_orig, verbose=0)
     pred_yt = best_model.predict(Xt, verbose=0)
@@ -212,33 +210,32 @@ if model_type == 'classifier':
     ax[1].set_title('AUC: {}'.format(auc_keras))
     ax[1].set_ylabel('True Positive Rate')
     ax[1].set_xlabel('False Positive Rate')
-    
+
 else:
-    
+
     # Training plot
     ax[0].plot(range(len(history.history['loss'])), history.history['loss'], c='blue', label='Training Loss')
     ax[0].plot(range(len(history.history['val_loss'])), history.history['val_loss'], c='red', label='Validation Loss')
     ax[0].set_ylabel('Mean Squared Error Loss')
     ax[0].set_xlabel('Epoch')
     ax[0].legend()
-   
+
     training_loss = history.history['loss'][best_epoch - 1]
     validation_loss = history.history['val_loss'][best_epoch - 1]
     test_loss = best_model.evaluate(Xt, yt, verbose=0)
-    
+
     rand_vals = []
     for x in range(100):
         rand_yt = np.array(copy.deepcopy(yt))
         np.random.shuffle(rand_yt)
         rand_vals.append(best_model.evaluate(Xt, rand_yt, verbose=0))
-    
+
     sorted_vals = np.sort(rand_vals)
-    
+
     ttest_t, ttest_pval = sp.stats.ttest_1samp(sorted_vals, test_loss)
-    print("Performance: tstat {}, pval {}, training_loss {}, validation_loss {}, test_loss {}, random5pc_loss {}, random_mean {}, random95pc_loss {}".format(ttest_t, ttest_pval, training_loss, validation_loss, test_loss, sorted_vals[5], np.mean(rand_vals), sorted_vals[95]))    
+    print("Performance: tstat {}, pval {}, training_loss {}, validation_loss {}, test_loss {}, random5pc_loss {}, random_mean {}, random95pc_loss {}".format(ttest_t, ttest_pval, training_loss, validation_loss, test_loss, sorted_vals[5], np.mean(rand_vals), sorted_vals[95]))
     ax[0].set_title('Training and validation performance\n Training loss: {0:.6f}, Validation loss: {1:.6f}, Test loss {2:.6f}\nRandomized 5%: {3:.6f}, mean: {4:.6f}, 95%: {5:.6f}\nT-test Statistic: {6:.6f} and p-value: {7:.6f}'.format(training_loss, validation_loss, test_loss, sorted_vals[5], np.mean(rand_vals), sorted_vals[95], ttest_t, ttest_pval)) 
-    
-    # 
+
     pred_y = best_model.predict(X_orig, verbose=0)
     pred_yt = best_model.predict(Xt, verbose=0)
 
@@ -253,17 +250,5 @@ else:
     ax[1].legend()
 
     ax[1].set_title("Predictions Test Set")
-    
+
 plt.savefig("results/{}/performance.png".format(model_name))
-                    
-                    
-                    
-                    
-
-    
-
-
-                       
-    
-                 
-
