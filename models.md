@@ -6,7 +6,7 @@ filename: models.md
 
 ##### Initial Model Architecture:
 
-Attempts to fit simple tree-based models (e.g. Random Forest) to stock and bond data were almost totally ineffective. 
+Attempts to fit simple tree-based models (e.g. Random Forest) to stock and bond data were ineffective.
 
 The following datasets were combined to form a hybrid predictor set: 
 - Tweet metadata
@@ -24,7 +24,9 @@ with 64 `relu` nodes per layer and a single linear output node (using the `adam`
 A 30% dropout rate and hybrid L1/L2 regularization were found to attenuate overfitting to the training set; 
 additionally, early stopping was found to be beneficial. 
 
-After 200 epochs of training, the neural network 
+Batch normalization was investigated but found to be ineffective. 
+
+After 200 epochs of training, the neural network was found to consistently outperform a *y*-randomized control (by 7%).  
 
 ![](assets/img/initial_model_pred.png)
 
@@ -33,3 +35,11 @@ After 200 epochs of training, the neural network
 ![](assets/img/initial_model_loss.png)
 
 **Figure 2**: Model Performance By Epoch
+
+Permutation importance analysis of the initial model (using `eli5`) revealed that the most important tweets were those referring to the Ukraine/impeachment scandal. 
+
+![](assets/img/initial_model_importance.png)
+
+**Figure 3**: Most Important Predictors For Initial Model
+
+##### Further Development:
