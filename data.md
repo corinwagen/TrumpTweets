@@ -151,7 +151,7 @@ We can see this at work for some individual stocks and exchanges below (they are
 
 ![](stocks/AAPL.png){:width="800px"}
 ![](stocks/SOYB.png){:width="800px"}
-![](stocks/ln-DJI.png){:width="800px"}
+![](stocks/Ln-DJI.png){:width="800px"}
 
 
 Here are two sub-examples: only our Chinese Stocks:
