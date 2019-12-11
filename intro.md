@@ -7,6 +7,8 @@ filename: intro.md
 #### Introduction: 
 
  ![](stocks/Tent.jpg)
+ 
+ (image source: https://www.pinterest.com/pin/765049055427783076/)
 
 No American President before Trump has weilded so instantaneous and direct a line of communication to the American public.
 
@@ -19,4 +21,14 @@ https://www.cnbc.com/2019/08/23/trump-says-hes-ordering-american-companies-to-im
 
 https://www.marketwatch.com/story/dow-surges-350-points-as-trump-tweets-of-extended-meeting-with-president-xi-on-trade-2019-06-18
 
-Indisputably
+Indisputably the President's online words, have the power to affect markets. In this project, we seek to understand how the President's tweets might affect markets. Specifically we attempted to train nueral nets on sentiment analysis associated tweet keywords to predict log-adjusted stock and bond prices. 
+
+Our ability to design models to address this problem difficult problem is chalenging because Trump's tweets tend to affect the market instantaneously, while we only have access to inter-day prices. However, our method did have limited success and more importantly, the methods herein contained could easily be imporoved upon and more powerful results obtained.
+
+
+
+
+
+https://www.barrons.com/articles/donald-trump-twitter-stock-market-51567803655
+
+
