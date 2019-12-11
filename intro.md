@@ -1,5 +1,5 @@
 
-#### Introduction: 
+#### Harvard Data Science 209a Trump Tweets and the Market Shrieks Introduction: 
 
  ![](stocks/Tent.jpg)
  
