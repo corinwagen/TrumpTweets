@@ -124,13 +124,22 @@ Here are the stocks we selected by category, all of which were selected because 
  
  American industrials, agricultural vehicles and manufacturing
  
- General Motors (GM), Deere  [DE] (https://www.deere.com/en/index.html),  Caterpillar Inc. (CAT), PPG Industries (PPG, they are a construction paint company), Hog Global Shipping (HOG)
+ General Motors (GM), Deere  [DE] (https://www.deere.com/en/index.html),  Caterpillar Inc. (CAT), PPG Industries (PPG, they are a construction paint company), Hog Global Shipping  (HOG)
 
 
-We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW JONES (DJI). We took a weighted average of the 31 stocks and the 3 exchanges: 0.5* (mean of the trade war sensitive stocks) + 0.5* (the mean of the tree exchanges). We averaged our trade-war sensitive stock average with the exchange data in order to revert our response variable a bit towards the mean, in an attempt to avoid overfitting on the particular stocks we selected. This is analygous to the way a mixed-effects model reverts cluster level means towards the global means. Our model response variable is still trade war sensitive, but probably more robust than it would have been had we not taken the above step.
+We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW JONES (DJI). We took a weighted average of the 31 stocks and the 3 exchanges: 0.5* (mean of the trade war sensitive stocks) + 0.5* (the mean of the tree exchanges). We averaged our trade-war sensitive stock average with the exchange data in order to revert our response variable a bit towards the mean, in an attempt to avoid overfitting on the particular stocks we selected. This is analygous to the way a mixed-effects model reverts cluster level means towards the global means. Our model response variable is still trade war sensitive, but probably more robust than it would have been had we not taken the above step. In the plot below you can see the aggregations of the stock and exchange data, (the red and blue areas under the curve) as well as the output of the weighted average (in green). We have a normal-ish distribution for these data in the log-space (though with a lower peak and fatter tails), which means our response should be somewhat easy to model. Since we are using Nueral nets, it wasn't essential to have a perfect normal distribution for our response.
+
+
+![](stocks/normal_dist.png){:width="800px"}
+
+**Figure 8.0a**: Log_normal rv Stock Justification 
 
 
 However, it's important to note that we did this after transforming and normalizing our data.
+
+![](stocks/LN-explanation.png){:width="800px"}
+
+**Figure 8.0b**: Log_normal rv Stock Justification 
 
 We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
 It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
@@ -138,9 +147,25 @@ We took the log of stock prices, and then averaged the resulting standardized no
 That is shown below (Figure 8) where the line in black is the average of the stocks. 
 This linear combination makes sense because a linear combination of normal random variables is also normal.
 
+We can see this at work for some individual stocks and exchanges below (they are at least symettric and bell shaped, which is what we wanted:
+
+![](stocks/AAPL.png){:width="800px"}
+![](stocks/SOYB.png){:width="800px"}
+![](stocks/Ln-DJI.png){:width="800px"}
+
+
+Here are two sub-examples: only our Chinese Stocks:
+
 ![](assets/img/image9.png){:width="800px"}
 
-**Figure 8**: Aggregate Chinese stock data
+**Figure 8.1**: Aggregate American stock data
+
+Only our American Stocks:
+
+![](stocks/amer_stock_prices_logadj.png){:width="800px"}
+
+**Figure 8.2**: Aggregate Chinese stock data
+
 
 
 #### Bonds:
