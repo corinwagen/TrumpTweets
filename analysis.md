@@ -4,10 +4,7 @@ layout: default
 filename: analysis.md
 --- 
 
-##### Models: 
-
 Several top-performing models were selected for further analysis, in order to obtain insight into the underlying mechanism of prediction. 
-
 Although the predictive power of these models is, in general, small, 
 we feel that any ability to reproducibly explain the massive complexity of the global stock market is exciting and worthy of further study. 
 
@@ -61,3 +58,18 @@ Accordingly, these predictors seem reasonable for describing volatility in the r
 ![](assets/img/ruble_importance.png){:height="350px"}
 
 **Figure xx**: Top Predictors of Ruble/Dollar Exchange Rate Variance
+
+##### Conclusions:
+
+The original goal of this project was to examine how Donald Trump's tweets impacted market confidence, both domestically and in international markets. 
+These results indicate that a small but non-zero amount of market variance across diverse indices can be explained by Trump's tweets, 
+particularly those pertaining to American foreign policy. 
+
+It is fundamentally difficult to deconvolute the impact of Trump's *tweets* and the impact of Trump's *actions*: 
+certainly, initiating a trade war with China would affect market indices regardless of tweets (or lack thereof). 
+Since this is the real world, we cannot perform an A/B test in which we examine the effect of only Trump's tweets; 
+it is likely that the observed correlation does not directly translate to causation (at least, not to the degree our models imply). 
+Nevertheless, it is remarkable and surprising that so simple a predictor as Trump's tweets are able to describe a substantial amount of the chaos of global markets.
+
+These data are extremely preliminary, and our conclusions could be greatly strengthened in many ways.
+We have summarized [a number of our ideas for further research](future_work.html), and hope that this analysis might serve as a stepping-stone for further insights in this area. 
