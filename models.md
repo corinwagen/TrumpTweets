@@ -43,19 +43,6 @@ Permutation importance analysis of the initial model (using `eli5`) revealed tha
 
 **Figure 3**: Most Important Predictors For Initial Model
 
-Models were fit on individual predictor sets, with dropout and predictor lookback as described in the following table. Two types of models were fit: a regression model, which attempted to estimate the amount of volatility, and a classification model whose goal it was to predict whether the response value would go up or down in a given day. 
-
-Stocks
-Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets.
-
-![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
-![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
-
-However, performance on Chinese stocks was better, and depended on the predictor set. In general, for both classificaiton and for regression, the users either retweeted or mentioned in Trump's tweets were predictive of Chinese stock market volatility.
-
-![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
-![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
-
 ##### Further Development:
 
 To more systematically probe the importance of various features and hyperparameters, full factorial optimization in predictor and hyperparameter space was carried out using the Cannon cluster. 
@@ -63,9 +50,21 @@ A 3-level dense neural network with 32 `relu` nodes per layer (and a single line
 Days of lookback (between 0 and 5), dropout coefficient (between 0 and 0.5), and predictor set were systematically varied and the improvement over the average of 100 *y*-randomized controls calculated.
 50-fold augmentation using random noise was carried out in all cases. 
 
+Models were fit on individual predictor sets, with dropout and predictor lookback as described in the following table. Two types of models were fit: a regression model, which attempted to estimate the amount of volatility, and a classification model whose goal it was to predict whether the response value would go up or down in a given day. 
+
 ###### American Stocks:
+Stocks
+Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets.
+
+![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
+![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
 
 ###### Chinese Stocks:
+
+However, performance on Chinese stocks was better, and depended on the predictor set. In general, for both classificaiton and for regression, the users either retweeted or mentioned in Trump's tweets were predictive of Chinese stock market volatility.
+
+![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
+![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
 
 ###### Thirty-Year Treasury Bonds:
 
@@ -89,4 +88,12 @@ Raising dropout coefficients was found to be important to reduce the variance of
 ![](assets/img/au_dropout.png)
 
 **Figure xx**: Effect of Different Dropout Coefficients on Modelling Gold Volatility
+
+To validate the significance of these models, a top-performing model employing `word2vec` predictors was refit 500 times and compared with *y*-randomized controls: 
+the model consistently outcompeted the controls, as demonstrated by a *t*-statistic of -44.19 (*p* < 1e-200).
+The mean improvement was 7.3%, in line with the improvement seen earlier (*vide supra*).
+
+![](assets/img/au_ttest.png)
+
+**Figure xx**: `word2vec`-based Models Consistently Perform Better Than Chance
 
