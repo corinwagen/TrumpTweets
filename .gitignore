@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+models/bond_models
+models/au_models
+models/bond_results
+models/au_results
