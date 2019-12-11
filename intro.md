@@ -6,7 +6,7 @@ filename: intro.md
 
 #### Introduction: 
 
-
+ ![](stocks/Tent.jpg)
 
 No American President before Trump has weilded so instantaneous and direct a line of communication to the American public.
 
