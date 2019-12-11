@@ -23,7 +23,7 @@ hostname >> $out
 echo "Job @JOBNAME started at..." >> $out
 date >> $out
 
-python run_model_ccw.py --config best_china_model_@NUM.json >> $out
+python run_model_ccw.py --config rub_model_@NUM.json >> $out
 
 echo "Job @JOBNAME finished at..." >> $out
 date >> $out
