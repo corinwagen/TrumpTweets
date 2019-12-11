@@ -104,3 +104,8 @@ The mean improvement was 7.3%, in line with the improvement seen earlier (*vide 
 
 **Figure xx**: `word2vec`-based Models Consistently Perform Better Than Chance
 
+###### Cryptocurrencies and Exchange Rates:
+
+Modeling volatility in cryptocurrencies and in foreign exchange rates (namely, the Canadian dollar (CAD) and the Russian ruble (RUB)), on single predictor sets that had performed well in the context of other responses (namely keyword embeddings, document embeddings, and handles of people mentioned in tweets), did not yield significant improvements over random (Figure XXX).
+
+![](assets/img/currencies_exchange_1.percent_improvement.png)
