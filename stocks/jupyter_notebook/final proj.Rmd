@@ -1,0 +1,506 @@
+---
+title: "ds1_final_proj"
+author: "Hayden Joy"
+date: "12/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+```{r cars}
+
+#View(as.data.frame(BZUN$price.close))
+require("quantmod")
+
+chinese.stocks <- c("BZUN", "BABA", "MOMO", "PDD")
+
+amer.stocks <- c("DE","SOYB", "CORN","BBY","IRBT", "BBBY", 
+                 "FDP", "M", "JCP", "NVDA", "GM", "AMD", "AAPL", "MU", 
+                 "CAT", "PPG", "HOG", "^DJI", "^NYA", "^IXIC", "BZUN", "BABA", "MOMO", "PDD")
+
+get_data <- function(stock_lst) 
+{
+  lst<-c()
+  lst2 <- c()
+  count <- 1
+  for (stockk in stock_lst)
+  {
+    
+    hii <- getSymbols(stockk, from = "2017-01-01", auto.assign = F)
+    stock.col.name = gsub("[^[:alnum:] ]", "", stockk)
+    
+    adj_col <- paste0(stock.col.name,".Adjusted")
+    vol_col <- paste0(stock.col.name,".Volume")
+    
+    
+    
+    if (count == 1)
+    {
+      lst <- hii[ , adj_col]
+      lst2 <- hii[ , vol_col]
+    }
+    else
+    {
+      lst  <- cbind(lst, hii[, adj_col])
+      lst2 <- cbind(lst2, hii[, vol_col])
+    }
+    count = count + 1
+  }
+  list(Adj = lst,Vol =lst2)
+}
+Cin_dat <- get_data(chinese.stocks)
+head(Cin_dat$Adj)
+head(Cin_dat$Vol)
+```
+```{r}
+
+Amer.dat <- get_data(amer.stocks)
+#head(Amer.dat$Adj)
+#head(Amer.dat$Vol)
+dates <- rownames(as.data.frame(Amer.dat))
+#plot(Amer.dat$Adj$DJI.Adjusted)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+
+
+
+```{r pressure, echo=FALSE}
+
+ratios <- c(100 / 64.22, 100/194.18, 100/42.46, 100/26.7)
+
+#lst2<-lst
+log.norm.transform<- function(lst2)
+{
+  means   <- c()
+  stderrs <- c()
+  for( i in 1:length(lst2[1,]))
+  {
+    lst2[,i] <- log(as.numeric(lst2[,i])+0.01) #* ratios[i]
+    
+    mn     = mean(na.omit(lst2[,i]))
+    means <- c(means, mn)
+    stderr = sqrt(var(na.omit(lst2[,i])))
+    stderrs <- c(stderrs, stderr)
+    lst2[,i] <- (lst2[,i] - mn)
+    lst2[,i] <- as.vector(lst2[,i]) / stderr
+    
+  }
+  lst2
+}
+```
+
+```{r}
+log.adj.cin = log.norm.transform(Cin_dat$Adj)
+
+log.adj.amer = log.norm.transform(Amer.dat$Adj)
+
+write.csv(log.adj.cin , file = "/Users/hayden/Desktop/HSenior/s1/ds1/final_project/final_round/upload/log_adj_chinese_combo.csv")
+write.csv(log.adj.amer, file = "/Users/hayden/Desktop/HSenior/s1/ds1/final_project/final_round/upload/log_adj_amer_combo.csv")
+#lines(lst2[,2], col = "blue")
+#lines(lst2[,3], col = "green")
+
+```
+
+
+
+
+
+```{r}
+#install.packages("ks")
+require("ks")
+
+
+deltt <- function(zooo, mov = FALSE)
+{
+  stocks <- zooo
+  nroww <- nrow(stocks)
+  exchange.idx = grepl("DJI", colnames(stocks)) | grepl("IXIC", colnames(stocks)) | grepl("NYA", colnames(stocks))
+
+  
+  if(mov == TRUE)
+  {
+    for(col_num in 1:ncol(stocks))
+    {
+      
+      #movavg(df[,col_num], n = 3, type = "e")
+      idx <- !is.na(stocks[,col_num])
+      
+      L <- (length(movavg((stocks[,col_num]), n = 3, type = "e")))
+      N <- nrow(stocks)
+      s = (N-sum(idx))
+      stocks[(s+1):N,col_num] <- movavg(na.omit(stocks[,col_num]), n = 3, type = "e")
+    }
+  }
+  
+  for (col in colnames(stocks))
+  {
+    stock_spec  <- col
+    delt <- rep(NA, nrow(stocks))
+    prev <- NA
+    #dummyx <- 1:(nrow(stocks)-1)
+    for (i in 1:nrow(stocks))
+    {
+      this <- stocks[i, stock_spec]
+      if( i > 1)
+      {
+        delt[i] <- as.numeric(this) - as.numeric(prev)
+      }
+      prev <- this
+    }
+    stocks[, stock_spec]<- delt
+  }
+  
+
+  
+  stocks$combined= NA
+  for (i in 1:length(stocks$combined))
+  {
+    #print( lst2[i, "combined"] )
+    
+    stocks[i, "combined"] =  0.5 * mean(stocks[i,exchange.idx], na.rm = T) +  0.5 *mean(stocks[i,-exchange.idx], na.rm = T)
+  }
+  stocks
+}
+
+amer.delt <- deltt(log.adj.amer, mov = FALSE)
+amer.delt.mov <- deltt(log.adj.amer, mov = TRUE)
+
+```
+
+
+```{r}
+library("scales")
+#plt.complex(amer.delt)
+plt.complex<- function(df, mainn)
+{
+  df[,"combined"] <- as.zoo(as.numeric( df[,"combined"] ))
+  n_1 = (ncol(df)-1)
+  for(i in 1:n_1)
+  {
+    if(i==1)
+    {
+      p<- plot(abs(df[,i]), main = paste(mainn), data = df, 
+               col = alpha("black", 0.1), ylim =c (0, 0.5),
+               xy.labels = ""
+               )
+    }
+    lines(df[,i], col = alpha("red", 0.2), lwd = 2)
+  }
+  lines(df[,"combined"], col = alpha("black", 0.7), lwd = 2)
+  p
+}
+
+print((rownames(amer.delt.export)))
+p0 <- plt.complex(amer.delt, "American Stocks Abs(Delta) 2017-2019")
+amer.delt.export <- abs(amer.delt)
+
+amer.delt.export <- abs(amer.delt)
+amer.delt.export$date <- NA
+amer.delt.export[,"date"] <- dates
+
+amer.delt.export <- (amer.delt.export[2:nrow(amer.delt),])
+
+p0
+  png(paste0("amer_vol_abs.png"))
+  print(p0)
+dev.off()
+
+write.csv((amer.delt.export), file = "/Users/hayden/Desktop/stocks_vol_abs.csv")
+
+```
+
+
+
+```{r}
+library("scales")
+#plt.complex(amer.delt)
+plt.complex_sq<- function(df, mainn)
+{
+  df[,"combined"] <- as.zoo(as.numeric( df[,"combined"] ))
+  n_1 = (ncol(df)-1)
+  for(i in 1:n_1)
+  {
+    if(i==1)
+    {
+      p<- plot(df[,i], main = mainn, data = df, col = alpha("black", 0.1))
+    }
+    lines(df[,i], col = alpha("red", 0.2), lwd = 2)
+  }
+  lines(df[,"combined"], col = alpha("black", 0.7), lwd = 2)
+  p
+}
+
+p0 <- plt.complex_sq(amer.delt, "Stocks Delta 2017-2019")
+
+amer.delt.export <- amer.delt
+amer.delt.export$date <- NA
+amer.delt.export$date <- (rownames(as.data.frame(amer.delt)))
+amer.delt.export <- (amer.delt.export[2:nrow(amer.delt),])
+
+
+p0
+  png(paste0("upload/stocks_delta.png"))
+  print(p0)
+dev.off()
+write.csv(amer.delt.export, file = "/Users/hayden/Desktop/HSenior/s1/ds1/final_project/final_round/upload/stocks_delta.csv")
+
+
+amer.delt.export.mov <- amer.delt.mov
+amer.delt.export.mov$date <- NA
+amer.delt.export.mov$date <- (rownames(as.data.frame(amer.delt.mov)))
+amer.delt.export.mov <- (amer.delt.export.mov[2:nrow(amer.delt.export.mov),])
+
+p0 <- plt.complex_sq(amer.delt.mov, "Stocks Delta, 3 day moving average 2017-2019")
+p0
+  png(paste0("upload/stocks_delta_3day_mov.png"))
+  print(p0)
+dev.off()
+write.csv(amer.delt.export.mov, file = "/Users/hayden/Desktop/HSenior/s1/ds1/final_project/final_round/upload/stocks_delta_mov.csv")
+
+
+```
+
+```{r}
+library("scales")
+#plt.complex(amer.delt)
+plt.complex<- function(df, mainn, limm = c(0,0.5))
+{
+  combin <- c()
+  
+  exchange.idx = grepl("DJI", colnames(df)) | grepl("IXIC", colnames(df)) | grepl("NYA", colnames(df))
+
+
+  if("combined" %in% colnames(df))
+  {
+    df[,"combined"] <- as.zoo(as.numeric( df[,"combined"] ))
+  }
+  else
+  {
+    for(i in 1:nrow(df))
+    {
+      
+       NYSE.idx = grepl("NYA", colnames(log.adj.amer))
+       combin <- c(combin, 0.5 * mean(df[i,exchange.idx], na.rm = T) + 
+                     0.5 *mean(df[i,-exchange.idx], na.rm = T) )
+    }
+  }
+  
+  
+  n_1 = (ncol(df)-1)
+  p<- plot(abs(df[,1]), main = mainn, data = df, col = alpha("black", 0.1), ylim = limm)
+  for(i in 1:n_1)
+  {
+    lines(df[,i], col = alpha("red", 0.2), lwd = 2)
+  
+  }
+
+  if("combined" %in% colnames(df))
+  {
+    print(paste("n_1" ,n_1))
+    lines(df[,"combined"], col = alpha("black", 0.7), lwd = 2)
+  }
+  else
+  {
+   
+    df$combined <-  combin
+    lines( df[,"combined"], col = alpha("black", 0.7), lwd = 2)
+  }
+  
+  p
+}
+
+p0 <- plt.complex(amer.delt, "American Stocks Delta 2017-2019")
+
+amer.delt.export <- amer.delt
+amer.delt.export$date <- NA
+amer.delt.export$date <- (rownames(as.data.frame(amer.delt)))
+amer.delt.export <- (amer.delt[2:nrow(amer.delt),])
+
+p0
+  png(paste0("amer_vol_abs.png"))
+  print(p0)
+dev.off()
+
+write.csv((amer.delt.export)^2, file = "/Users/hayden/Desktop/stocks_vol_abs.csv")
+
+```
+
+```{r}
+
+
+```
+
+
+```{r}
+p0 <- plt.complex(log.adj.amer, "Log Adjusted stock prices", limm = c(-3, 3))
+
+amer.delt.export <- amer.delt
+amer.delt.export$date <- NA
+amer.delt.export$date <- (rownames(as.data.frame(amer.delt)))
+amer.delt.export <- (amer.delt[2:nrow(amer.delt),])
+
+p0
+  png(paste0("amer_stock_prices_logadj.png"))
+  print(p0)
+dev.off()
+```
+```{r}
+
+sample(colss,1)
+```
+
+```{r}
+#install.packages("pracma")
+require("pracma")
+
+
+
+mov_avg_plot <- function(df, col_num, seqq = seq(2, 100, by = 5), coll = "red")
+{
+  
+  col_spec = colnames(df)[col_num]
+  p <- plot(movavg(df[,col_num], n = 2, type = "e"), type = 'l', col = alpha("black", 0.5), 
+       main = paste(col_spec, "Moving Average as n increases, from 2 to 100"), 
+       ylab = "log-normal adjusted price")
+  
+  for( i in seqq)
+  {
+    lines(movavg(df[,col_num], n = i, type = "e"), type = 'l', col = alpha(coll, i/max(seqq)))
+  }
+  p
+}
+library("grid")
+library("ggplotify")
+
+colss<- c("darkorange", "magenta", "red", "blue", "cyan", "navyblue")
+for(i in 1:ncol(log.adj.amer))
+{
+  color_spec = sample(colss, 1)
+  print(color_spec)
+  mov_avg_plot(log.adj.amer, col_num = i, coll = color_spec )
+  p0 = recordPlot()
+  namee <- gsub("\\..*","",colnames(log.adj.amer)[i])
+  p0
+  png(filename = paste0("mov_plots/",namee,"_movavg.png"))
+    print(p0)
+  dev.off()
+}
+
+
+
+```
+```{r}
+for(i in 1:length(amer.delt[1,]))
+{
+  if(i ==1){
+    hist(kde(amer.delt[,i]), col = alpha("red", 0.01), breaks = 30)
+  }
+  else
+  {
+     hist(kde(amer.delt[,i]), col = alpha("red", 0.01), breaks = 30, add = T)
+  }
+}
+
+```
+
+```{r}
+require("ks")
+hi<-kde(na.omit(amer.delt[,1]), binned = T,compute.cont=TRUE, xmin=c(-5,-5), xmax=c(5,5), bgridsize=c(151,151))
+plot(as.numeric(hi))
+```
+
+
+```{r}
+#View(amer.delt)
+print(colnames(amer.delt))
+plot(movavg(amer.delt[2:nrow(amer.delt),"DJI.Adjusted"], n = 100, type = "e"), type = 'l', col = alpha("black", 0.5), 
+       main = paste(col_spec, "Moving Average as n increases, from 2 to 100"), 
+       ylab = "log-normal adjusted price")
+#mov_avg_plot(amer.delt[2:length(amer.delt[,1]),], 10, seqq =  seq(2, 200, by = 10))
+```
+
+
+
+```{r}
+
+lst3<- china
+means   <- c()
+stderrs <- c()
+for( i in 1:length(lst3[1,]))
+{
+  lst3[,i] <- as.numeric(lst3[,i]) #* ratios[i]
+  
+  mn     = mean(na.omit(lst3[,i]))
+  means <- c(means, mn)
+  print("hi")
+  stderr = var(na.omit(lst3[,i]))
+  stderrs <- c(stderrs, stderr)
+  #
+  lst3[,i] <- (lst3[,i] - mn)
+  lst3[,i] <- as.vector(lst3[,i]) / stderr
+}
+lst3$combined = NA
+print(stderrs)
+print(as.vector(lst3$combined) * mean(stderrs))
+lst3$combined <- as.vector(lst3$combined) * mean(stderrs) #+mean(means)
+#View(lst)
+
+
+
+lst2$combined= NA
+lst3$combined= NA
+for (i in 1:length(lst2$combined))
+{
+  #print( lst2[i, "combined"] )
+  lst2[i, "combined"] = mean(na.omit(as.numeric(lst2[i,])))
+  lst3[i, "combined"] = mean(na.omit(as.numeric(lst3[i,])))
+}
+#View(lst2)
+
+
+count = 0
+lst33 = FALSE
+if( 1 == 0)
+{
+  plot(lst3$combined)
+  lines(lst3[,1], col = "red")
+  lines(lst3[,2], col = "blue")
+  lines(lst3[,3], col = "green")
+}else if ( 1 == 1)
+{
+  plot(lst2$combined, main = "Standardized Log-transformed Chinese trade war impacted stocks")
+  lines(lst2[,1], col = "red")
+  lines(lst2[,2], col = "blue")
+  lines(lst2[,3], col = "green")
+}else{
+  plot(lst$combined)
+  lines(lst[,1], col = "red")
+  lines(lst[,2], col = "blue")
+  lines(lst[,3], col = "green")
+}
+
+lst2$date <- NA
+lst2$date <- (rownames(as.data.frame(lst2)))
+
+
+
+
+
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
