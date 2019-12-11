@@ -1,0 +1,150 @@
+---
+title: "Final_project_explaination_log_normal"
+author: "Hayden Joy"
+date: "11/19/2019"
+output: pdf_document
+---
+
+Let's assume that our stock variables are log-normally distributed. This is better than assuming that they are normally distributed because our support is strictly positive.
+This is what I did to combine the stock data. This means that the log of X is normally distributed.
+
+Further, we allow for a right skewed distribution which can account for surging stock prices like Amazon ect.
+
+$$X\thicksim\mathcal{LN}$$
+$$log(X)\thicksim\mathcal{N}(\mu, \sigma^2)$$
+This means that:
+$$X=  e^{\mu + \sigma Z}$$
+So to get standardized normal random variables we can do the following:
+
+$$(log(X)-\mu)/\sigma=Z$$
+
+```{r}
+hi<-c(1,2,3)
+sample(hi,5, replace = T)
+```
+
+
+```{r}
+stocks<-read.csv("log_adj_amer_combo.csv")
+#install.packages("ks")
+require("ks")
+
+nroww <- nrow(stocks)
+
+for (col in colnames(stocks)[3:length(colnames(stocks))-1])
+{
+  stock_spec  <- col
+  delt <- rep(NA, nrow(stocks)-1)
+  prev <- NA
+  dummyx <- 1:(nrow(stocks)-1)
+  for (i in 1:nrow(stocks))
+  {
+    this <- stocks[i, stock_spec]
+    if( i > 1)
+    {
+      delt[i-1] <- this - prev
+    }
+    prev <- this
+  }
+  stocks[2:nroww,paste0(col, "_delt")]<- delt
+  head(delt)
+  plot(delt ~ dummyx)
+  lm1 <- lm(delt ~ dummyx)
+  booted <- sample(na.omit(delt),nroww,replace = T)
+  print(length(na.omit(delt)))
+  if((length(booted)-1) == length(na.omit(delt)))
+  {
+    hist(delt, breaks = 20, col = "blue",main = col,  xlab = "blue is the log-normally adjusted price, red is normal dist")
+  }
+  else{
+    hist(booted, breaks = 20, col = "blue",main = col,  xlab = "blue is the log-normally adjusted price, red is normal dist")
+    print("ALT")
+  }
+  
+  dummyx <- seq(-0.6,0.6, 0.01)
+ 
+  y <- rnorm(n = length(delt), mean = 0, sd = sd(booted))#* (sqrt(length(na.omit(delt)))/sqrt(length(delt)))
+  library("scales")
+  hist(na.omit(y), add = T, col = alpha("red", 0.5))
+}
+
+head(stocks)
+
+```
+<!---
+```{r}
+stocks<-read.csv("log_adj_chinese_combo.csv")
+#install.packages("ks")
+require("ks")
+
+nroww <- nrow(stocks)
+rm(seqq)
+seqq_base <- 0.4
+seqq<- rep(0.6, 5)
+print(seqq)
+
+for ( l in 1:length(seqq))
+{
+  seqq[l] = seqq_base^l
+}
+seqq <- seqq / sum(seqq)
+print(paste("sequqnce: ", seqq))
+
+for (col in colnames(stocks)[3:length(colnames(stocks))-1])
+{
+  stock_spec  <- col
+  delt <- c()
+  prev <- c(NA,NA)
+
+  for (i in 1:nrow(stocks))
+  {
+    this <- stocks[i, stock_spec]
+    if( i > 5)
+    {
+      auto_regg_1 <- this - stocks[i - 1, stock_spec] 
+      auto_regg_2 <- (stocks[i -1, stock_spec] - stocks[i - 2, stock_spec])  * seqq[1]
+      auto_regg_3 <- (stocks[i -2, stock_spec] - stocks[i - 3, stock_spec])  * seqq[2]
+      auto_regg_4 <- (stocks[i -2, stock_spec] - stocks[i - 3, stock_spec]) * seqq[3]
+      auto_regg_5 <- (stocks[i -3, stock_spec] - stocks[i - 4, stock_spec]) * seqq[4]
+      auto_regg   <- c(auto_regg_1, auto_regg_2, auto_regg_3, auto_regg_4,auto_regg_5 )
+      auto_regg   <- na.omit(auto_regg)
+      #auto_regg  <- auto_regg[auto_regg <= 1]
+      delt <- c(delt, auto_regg[1] + auto_regg[2] + auto_regg[3] + auto_regg[4] + auto_regg[5])
+    }
+    prev[2] <- prev[1]
+    prev[1] <- this
+  }
+  
+
+  stocks[(nroww - length(delt)+1):nroww,paste0(col, "_delt")]<- delt
+  dummyx <- 1:(length(delt))
+  head(delt)
+  plot(delt ~ dummyx)
+  lm1 <- lm(delt ~ dummyx)
+  booted <- sample(na.omit(delt),nroww,replace = T)
+  print(length(na.omit(delt)))
+  
+  
+  
+  booted <- sample(na.omit(delt),nroww,replace = T)
+  #print(length(na.omit(delt)))
+  if((length(booted)-1) == length(na.omit(delt)))
+  {
+    hist(delt, breaks = 20, col = "blue",main = col,  xlab = "blue is the log-normally adjusted price, red is normal dist")
+  }
+  else{
+    hist(booted, breaks = 20, col = "blue",main = col,  xlab = "blue is the log-normally adjusted price, red is normal dist")
+    print("ALT")
+  }
+  
+  dummyx <- seq(-0.6,0.6, 0.01)
+ 
+  y <- rnorm(n = length(delt), mean = 0, sd = sd(booted))#* (sqrt(length(na.omit(delt)))/sqrt(length(delt)))
+  library("scales")
+  hist(na.omit(y), add = T, col = alpha("red", 0.5))
+}
+
+head(stocks)
+
+```
+--->
