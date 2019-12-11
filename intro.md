@@ -23,7 +23,9 @@ Indisputably the President's online words, have the power to affect markets. But
 
 In this project, we seek to understand how the President's tweets might affect these various markets. Specifically we attempted to train nueral nets on sentiment analysis associated tweet keywords to predict log-adjusted stock prices, bond prices, and commodity prices. 
 
-Our ability to design models to address this problem difficult problem is chalenging because Trump's tweets tend to affect the market instantaneously, while we only have access to inter-day prices. However, our method did have limited success and more importantly, the methods herein contained could easily be imporoved upon and more powerful results obtained.
+Our ability to design models to address this problem difficult problem is chalenging because Trump's tweets tend to affect the market instantaneously, while we only have access to inter-day prices. 
+
+The markets, as mass activity of billions of people, millions of companies and trillions of dollars are a nigh on impossibly complex system to imagine. It is impossible that one man's tweets can alone change the tradjectory of markets, so we were actually impressed by the limited successof our method. More importantly, as our work came together over the final week, many powerful and interesting extensions revealed themselves which was exciting and indicative of time well spent.
 
 
  ![](stocks/p1.png)
