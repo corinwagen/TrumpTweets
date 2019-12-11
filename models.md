@@ -15,9 +15,10 @@ The following datasets were combined to form a hybrid predictor set:
 - Topic scores 
 - Sentiment
 
-Predictors were combined by day, and each day's data was supplemented with the previous n days' data, where n was a hyperparameter of the model. These 'lookbacks' were at first n days of tweet-based predictors. This was further explored by also adding in previous n-1 days of responses (the stock volatility from previous days).
+Predictors were combined by day, and each day's data was supplemented with the previous n days' data, where n was a hyperparameter of the model. 
+These 'lookbacks' were at first n days of tweet-based predictors. This was further explored by also adding in previous n-1 days of responses (the stock volatility from previous days).
 The resultant dataset (692 rows) was standardized and divided into a train dataset (first 595 rows) and a test dataset (last 86 rows, chronologically).
-The train dataset was augmented through addition of gaussian noise, to create a dataset of size 50 times that of the original datset.
+The train dataset was augmented through addition of noise to create a dataset 50 times larger than the original datset.
 
 An initial hit (for modelling combined American stock volatility) was found using a 3-layer dense neural network, 
 with 32 `relu` nodes per layer and a single linear output node (using the `adam` optimizer in TensorFlow to optimize mean absolute error). 
