@@ -47,12 +47,12 @@ Models were fit on individual predictor sets, with dropout and predictor lookbac
 Stocks
 Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets.
 
-![](models/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
-![](models/img/american_stocks1.single_predictor_set.classifier_auc.png')
+![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
+![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
 
 However, performance on Chinese stocks was better, and depended on the predictor set. In general, for both classificaiton and for regression, the users either retweeted or mentioned in Trump's tweets were predictive of Chinese stock market volatility.
 
-![](models/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
-![](models/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
+![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
+![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
 
 ##### Further Development:
