@@ -13,8 +13,8 @@ predictors = ["../tweets/data/keyword_word2vec_predictors.by_day.csv",
 predictor_lookbacks = range(5)
 
 #responses = ["../stocks/amer_stocks_delta.csv"]
-responses = ["../bonds/adjusted^TYX.csv"]
-response_columns = "Vol"
+responses = ["../miscdata/golddata.csv"]
+response_columns = "delta"
 response_lookbacks = range(5)
 
 dropout_pcts = [0.0, 0.2, 0.3, 0.4, 0.5]
