@@ -28,6 +28,9 @@ Our ability to design models to address this problem difficult problem is chalen
 
 
 
+ ![](stocks/p1)
+ 
+ (image source: https://www.pinterest.com/pin/765049055427783076/)
 
 https://www.barrons.com/articles/donald-trump-twitter-stock-market-51567803655
 
