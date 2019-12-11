@@ -135,11 +135,11 @@ In the plot below you can see the aggregations of the stock and exchange data (r
 The observed pseudo-normal distribution for these data in log-space (though with a lower peak and fatter tails) is beneficial for modelling purposes
 (although a normal distribution is not required for neural nets).
 
-![](stocks/normal_dist.png){:width="800px"}
+![](stocks/normal_dist.png){:width="600px"}
 
 **Figure 8**: Log_normal rv Stock Justification 
 
-![](stocks/LN-explanation.png){:width="800px"}
+![](stocks/LN-explanation.png){:width="600px"}
 
 **Figure 9**: Log_normal rv Stock Justification 
 
@@ -149,15 +149,15 @@ We took the log of stock prices, and then averaged the resulting standardized no
 
 We can see this at work for some individual stocks and exchanges below (Figures 10--12):
 
-![](stocks/AAPL.png){:width="800px"}
+![](stocks/AAPL.png){:width="600px"}
 
 **Figure 10**: Apple stock (AAPL)
 
-![](stocks/SOYB.png){:width="800px"}
+![](stocks/SOYB.png){:width="600px"}
 
 **Figure 11**: Commodity Soybean price (SOYB)
 
-![](stocks/Ln-DJI.png){:width="800px"}
+![](stocks/Ln-DJI.png){:width="600px"}
 
 **Figure 12**: Dow Jones (DJI)
 
@@ -167,7 +167,7 @@ And pictured for aggregate Chinese (Figure 13) and American (Figure 14) data:
 
 **Figure 13**: Aggregate Chinese stock data (average shown in black)
 
-![](stocks/amer_stock_prices_logadj.png){:width="800px"}
+![](stocks/amer_stock_prices_logadj.png){:width="600px"}
 
 **Figure 14**: Aggregate American stock data (average shown in black)
 
@@ -180,7 +180,7 @@ To arrive at a rough measure of volatility, we took the difference between the h
 
 ![](assets/img/image5.png)
 
-**Figure 15**: Daily delta for 10 year US Treasury bonds.
+**Figure 15**: Daily volatility (different between daily high and daily low) for 10 year US Treasury bonds.
 
 #### Other:
 
