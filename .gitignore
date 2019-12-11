@@ -108,3 +108,5 @@ models/bond_models
 models/au_models
 models/bond_results
 models/au_results
+models/au_ttest
+models/china_ttest
