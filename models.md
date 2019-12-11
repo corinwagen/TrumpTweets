@@ -43,3 +43,36 @@ Permutation importance analysis of the initial model (using `eli5`) revealed tha
 **Figure 3**: Most Important Predictors For Initial Model
 
 ##### Further Development:
+
+To more systematically probe the importance of various features and hyperparameters, full factorial optimization in predictor and hyperparameter space was carried out using the Cannon cluster. 
+A 3-level dense neural network with 32 `relu` nodes per layer (and a single linear output node) was optimized using the `adam` optimizer. 
+Days of lookback (between 0 and 5), dropout coefficient (between 0 and 0.5), and predictor set were systematically varied and the improvement over the average of 100 *y*-randomized controls calculated.
+50-fold augmentation using random noise was carried out in all cases. 
+
+###### American Stocks:
+
+###### Chinese Stocks:
+
+###### Thirty-Year Treasury Bonds:
+
+Modelling of bond volatility was found to be largely ineffective: although various outliers gave noticeable improvements over *y*-randomized models, 
+the overall distribution of model performance implied that this was merely an artifact (Figure xx). 
+Accordingly, these models were not investigated further.
+
+![](assets/img/bond_predictors.png)
+
+**Figure xx**: Effect of Different Predictor Sets on Modelling Bond Volatility
+
+###### Gold Prices:
+
+In contrast, modelling volatility in gold prices was more successful: in particular `word2vec`-based predictors sets gave marked improvement over *y*-randomized models (Figure xx). 
+Raising dropout coefficients was found to be important to reduce the variance of the models (which is consistent with the pseudo-ensemble effect of neural networks with high dropout) (Figure xx).
+
+![](assets/img/au_predictors.png)
+
+**Figure xx**: Effect of Different Predictor Sets on Modelling Gold Volatility
+
+![](assets/img/au_dropout.png)
+
+**Figure xx**: Effect of Different Dropout Coefficients on Modelling Gold Volatility
+
