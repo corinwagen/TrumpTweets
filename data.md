@@ -105,16 +105,38 @@ Using
 
 Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
 We put together a simple response variable that was an average of the following stocks after a transformation: BZUN, BABA, MOMO, PDD. 
-They were selected because of [this article](https://www.investors.com/market-trend/stock-market-today/stock-market-rips-higher-trade-optimism-chinese-stocks-make-big-moves/). 
-They are all supposedly highly correlated with the trade war.
+The Chinese stocks were selected from [this article](https://www.investors.com/market-trend/stock-market-today/stock-market-rips-higher-trade-optimism-chinese-stocks-make-big-moves/). The American trade war sensitive stocks were selected because of [this article](https://www.cbsnews.com/news/us-china-tariffs-5-american-industries-hit-hardest-by-president-trumps-u-s-china-trade-war/
+), and [this article](https://www.kiplinger.com/slideshow/investing/T052-S001-14-stocks-already-hurt-by-president-trump-tariffs/index.html).
+
+Here are the stocks we selected by category, all of which were selected because they are supposedly highly correlated with the trade war.
+
+ Chinese stocks:
+ Bazun (BZUN), Alibaba (BABA), MOMO, Pinduoduo (PDD).
+ 
+ American superconductor, robotics, and technology stocks:
+ Nvidia (NVDA), Micron (MU), AMD, Irobot (IRBT), apple (APPL)
+ 
+ American Farm stocks:
+ CORN (literally a corn commodity etf), SOYB (a soybean EFT), Fresh Delmonte Produce (FDP)
+ 
+ American Retail:
+ Best Buy (BBY), Bed Bath and Beyond (BBBY), Macy's (M), JC Penny (JCP),
+ 
+ American industrials, agricultural vehicles and manufacturing
+ 
+ General Motors (GM), Deere  [DE] (https://www.deere.com/en/index.html),  Caterpillar Inc. (CAT), PPG Industries (PPG, they are a construction paint company), Hog Global Shipping (HOG)
+
+
+We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW JONES (DJI). We took a weighted average of the 31 stocks and the 3 exchanges: 0.5* (mean of the trade war sensitive stocks) + 0.5* (the mean of the tree exchanges). We averaged our trade-war sensitive stock average with the exchange data in order to revert our response variable a bit towards the mean, in an attempt to avoid overfitting on the particular stocks we selected. This is analygous to the way a mixed-effects model reverts cluster level means towards the global means. Our model response variable is still trade war sensitive, but probably more robust than it would have been had we not taken the above step.
+
+
+However, it's important to note that we did this after transforming and normalizing our data.
 
 We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
 It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
 We took the log of stock prices, and then averaged the resulting standardized normal normal data to produce a response variable. 
 That is shown below (Figure 8) where the line in black is the average of the stocks. 
 This linear combination makes sense because a linear combination of normal random variables is also normal.
-
-We plan to make more combinations of stocks to improve and vary this response variable in the next stage of the project. We will also look at US superconductor stocks and farm stocks which are affected by the trade war as well.
 
 ![](assets/img/image9.png){:width="800px"}
 
