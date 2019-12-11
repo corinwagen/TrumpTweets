@@ -1,0 +1,1 @@
+{"model_name": "model_1750", "predictors": [["../tweets/data/embedded_topic_model_topic_scores.by_day.csv", 0]], "augment": {"n": 50, "stdev": 0.2}, "response": {"fname": "../bonds/adjusted^TYX.csv", "column": "Vol", "lookback": 0}, "model_params": {"dropout_pct": 0.0, "n_layers": 3, "nodes_per_layer": 32, "model_type": "classifier"}, "training_params": {"epochs": 100}}

@@ -1,0 +1,8 @@
+*************************************
+Running on host:
+holy7c16407.rc.fas.harvard.edu
+Job @JOBNAME started at...
+Tue Dec 10 22:15:39 EST 2019
+{'model_name': 'model_950', 'predictors': [['../tweets/data/topic_model_simple_weights.by_date.csv', 4]], 'augment': {'n': 50, 'stdev': 0.2}, 'response': {'fname': '../bonds/adjusted^TYX.csv', 'column': 'Vol', 'lookback': 0}, 'model_params': {'dropout_pct': 0.0, 'n_layers': 3, 'nodes_per_layer': 32, 'model_type': 'classifier'}, 'training_params': {'epochs': 100}}
+Job @JOBNAME finished at...
+Tue Dec 10 22:16:10 EST 2019
