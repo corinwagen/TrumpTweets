@@ -16,7 +16,7 @@ The top-performing model for predicting Chinese stocks used Trump's frequent Twi
 (relative to a *y*-randomized model). 
 Using `eli5`'s predictor importance feature (which shuffles various predictors and observes the loss in efficacy), the most important predictors could be extracted (Figure xx).
 
-![](img/assets/best_china_pred.png)
+![](assets/img/best_china_pred.png)
 
 **Figure xx**: Top Predictors of Chinese Stock Variance
 
@@ -24,7 +24,7 @@ Notably, two contributors to Fox News occupied the top positions (Mollie Hemingw
 It is plausible that Trump mentions these people disproportionately when significant news events are occuring (which will concomitantly impact the Chinese stock market),
 but more research and experimentation is needed before conclusive results can be obtained. 
 
-![](img/assets/maria_tweet.png)
+![](assets/img/maria_tweet.png)
 
 **Figure xx**: A sample tweet (@MariaBartiromo) which might impact Chinese stock volatility
 
