@@ -31,7 +31,7 @@ The two easiest ways we could do to improve our response variable are:
 Moving Averages
  - We have taken moving averages, but we haven't optimized the length of our moving average. However, given that Trump tweets so often, and many times a day, our prior belief was that his tweets would affect intraday prices or just a bit into the future. That is, our model's response variable implicitly assumes a short memory for tweets. But we haven't empirically tested this assumption and it could very well be that differences in moving averages for price would work better than our current response variable by helping to reduce noise. Optimizing the number of days over which to take a moving average could be seen as a hyper-parameter. 
  
- We used the moving average [movavg] (https://www.rdocumentation.org/packages/pracma/versions/1.9.9/topics/movavg) function in R to produce the following plots over changing values over n days:
+ We used the moving average [movavg](https://www.rdocumentation.org/packages/pracma/versions/1.9.9/topics/movavg) function in R to produce the following plots over changing values over n days:
  
  ![](stocks/moving_avg_plots/AAPL_movavg.png)
  
@@ -43,7 +43,7 @@ Moving Averages
  
 Auto-Regression:
 - a similar concept to moving averages is auto-regression. It similarly uses previous time steps to predict values at the next time steps.
-Here is a [graphic]  (https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix:
+Here is a [graphic](https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix:
 
  ![](stocks/auto-regressive.png)
 
