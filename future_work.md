@@ -35,7 +35,6 @@ Moving Averages
  
  ![](stocks/moving_avg_plots/AAPL_movavg.png)
  
- 
  ![](stocks/moving_avg_plots/CORN_movavg.png)
  
  ![](stocks/moving_avg_plots/BABA_movavg.png)
@@ -46,6 +45,7 @@ Auto-Regression:
 - a similar concept to moving averages is auto-regression. It similarly uses previous time steps to predict values at the next time steps.
 Here is a [graphic]  (https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix:
 
+ ![](stocks/auto-regressive.png)
 
 
 
