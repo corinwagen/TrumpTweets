@@ -1,7 +1,0 @@
-*************************************
-Running on host:
-holy7c12610.rc.fas.harvard.edu
-Job @JOBNAME started at...
-Tue Dec 10 22:37:25 EST 2019
-Job @JOBNAME finished at...
-Tue Dec 10 22:37:58 EST 2019

@@ -1,1 +1,0 @@
-{"model_name": "model_318", "predictors": [["../tweets/data/frequent_handles.by_day.csv", 1]], "augment": {"n": 50, "stdev": 0.2}, "response": {"fname": "../bonds/adjusted^TYX.csv", "column": "Vol", "lookback": 1}, "model_params": {"dropout_pct": 0.5, "n_layers": 3, "nodes_per_layer": 32, "model_type": "classifier"}, "training_params": {"epochs": 100}}
