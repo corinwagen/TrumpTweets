@@ -8,6 +8,35 @@ filename: models.md
 
 Attempts to fit simple tree-based models (e.g. Random Forest) to stock and bond data were ineffective. Therefore, we explored neural networks as an alternative approach to prediction. 
 
+An initial hit (for modelling combined American stock volatility) was found using a 3-layer dense neural network, 
+with 32 `relu` nodes per layer and a single linear output node (using the `adam` optimizer in TensorFlow to optimize mean absolute error). 
+A 30% dropout rate and hybrid L1/L2 regularization were found to attenuate overfitting to the training set; 
+additionally, early stopping was found to be beneficial. 
+
+Batch normalization was investigated but found to be ineffective. 
+
+After 200 epochs of training, the neural network was found to consistently outperform a *y*-randomized control (by 7%).  
+
+![](assets/img/initial_model_pred.png)
+
+**Figure 1**: Initial Predictions for Test Set and Training Set
+
+![](assets/img/initial_model_loss.png)
+
+**Figure 2**: Model Performance By Epoch
+
+Permutation importance analysis of the initial model (using `eli5`) revealed that the most important tweets were those referring to the Ukraine/impeachment scandal. 
+
+![](assets/img/initial_model_importance.png){:height="350px"}
+
+**Figure 3**: Most Important Predictors For Initial Model
+
+##### Systematic Extension of Initial Model Architecture
+
+To more systematically probe the importance of various features and hyperparameters, full factorial optimization in predictor and hyperparameter space was carried out using the Cannon cluster. 
+
+###### Predictors:
+
 The models discussed below have been trained on individual or combinations of the predictors described in the "data" section, which include: 
 - Tweet metadata
 - Top mentioned users
@@ -15,13 +44,20 @@ The models discussed below have been trained on individual or combinations of th
 - Topic scores 
 - Sentiment
 
-Predictors were combined by day, and each day's data was supplemented with the previous n days' data, where d, the 'lookback', was a hyperparameter of the model. The resultant dataset was standardized and divided into a train dataset (first x days) and a test dataset (last 208 days). In order to mitigate some of the overfitting that might be caused by a small training dataset, we augmented the training datset through addition of noise to create a dataset k times larger than the original dataset (where k was 50, 100, or 500--see analysis section). 
+Predictors were combined by day, and each day's data was supplemented with the previous n days' data, where d, the 'lookback', was a hyperparameter of the model. The resultant dataset was standardized and divided into a train dataset (first x days) and a test dataset (last 208 days). In order to mitigate some of the overfitting that might be caused by a small training dataset, we augmented the training datset through addition of noise to create a dataset k-fold larger than the original dataset (where k was 50, 100, or 500--see analysis section). 
+
+###### Responses:
 
 Several different types of response data were modeled with these predictors: (1) Stock Market, (2) Bonds, (3) Gold, (4) Cryptocurrencies and Exchange Rates. These will each be addressed in turn. First, we will show the performance of each predictor dataset on each response set, and second in this and the analysis section on Chinese stocks and Gold, we will further investigate combinations of predictor sets in predicting these particular response variables.
 
-The model architecture is a multi-layer neural network with l layers and n nodes per layer. To test each of the predictor sets individualy, an initial model was build with l=3 and n=32. After the initial models were trained, these hyperparameters were varied and performance was measured (see below)
 
-##### Stocks:
+###### Architecture & Training:
+
+The model architecture is a multi-layer dense neural network with l layers and n nodes per layer, and a single output node. Nodes in the densely connected layer had a `relu` activation function and the output node had a linear activation function, as we were predominantly performing a regression task (note a few of the initial predictor-response sets were also used to train classification models of stock prices simply going "up" or "down"). After the initial models were trained, these hyperparameters were systematically varied and performance was measured (see below). 
+
+The models were optimized using the `adam` optimizer. To avoid overfitting, dropout was performed on the input as well as on each densely connected layer. The percent dropout at each layer was another hyperparameter that was systematically tested in the range of 0.0-0.7.
+
+##### Model performance on single predictor datasets
 
 ###### American Stocks:
 
@@ -81,44 +117,28 @@ Modeling volatility in cryptocurrencies and in foreign exchange rates (namely, t
 
 ![](assets/img/currencies_exchange_1.percent_improvement.png)
 
+#### Model optimization on multiple predictor datasets
 
-########
-An initial hit (for modelling combined American stock volatility) was found using a 3-layer dense neural network, 
-with 32 `relu` nodes per layer and a single linear output node (using the `adam` optimizer in TensorFlow to optimize mean absolute error). 
-A 30% dropout rate and hybrid L1/L2 regularization were found to attenuate overfitting to the training set; 
-additionally, early stopping was found to be beneficial. 
+We next asked whether nonredundant, predictive information could be extracted from multiple predictor datasets. For this analysis, we focused on the Chinese Stock Market volatility and RUB-USD exchange rate as response variables. The top performing predictors were `word2vec` embeddings and twitter handles, so we first combined these two predictor sets. We included the appropriate lookback for the best performing models: in the case of the Chinese Stock Market, the best performing models had 5 days of lookback, and in the case of RUB-USD exchange rates, the best performing models had 1 day of lookback. We trained models with the identical architecture (3 layers, 32 nodes each) and dropout rate (0.3) as in the single predictor set models, in order to assess the effects of the increased number of predictors on this architecture. 
 
-Batch normalization was investigated but found to be ineffective. 
+Notably, the test loss increased signficantly, and the percent improvement over random decreased. This is illustrated in Table XX, which compares the model performance between the single predictor and the combined predictors, using an identical architecture to the single predictor. This table also suggests that the model with more predictors was overfit to the dataset, because the training set loss diverges from the test set loss.*
 
-After 200 epochs of training, the neural network was found to consistently outperform a *y*-randomized control (by 7%).  
+| Predictors         | Augmentation n | % Improvement | Test Loss | Training Loss | Validation Loss |
+|--------------------|----------------|---------------|-----------|---------------|-----------------|
+| Word2Vec           | 50             | 17.1          | 0.386     | 0.352         | 0.234           |
+| Handles            | 50             | 39.2          | 0.263     | 0.315         | 0.276           |
+|--------------------|----------------|---------------|-----------|---------------|-----------------|
+| Word2Vec + Handles | 50             | 10.39         | 0.681     | 0.059         | 0.014           |
+| Word2Vec + Handles | 100            | 3.77          | 0.599     | 0.058         | 0.011           |
+| Word2Vec + Handles | 500            | 8.73          | 0.551     | 0.058         | 0.013           |
 
-![](assets/img/initial_model_pred.png)
-
-**Figure 1**: Initial Predictions for Test Set and Training Set
-
-![](assets/img/initial_model_loss.png)
-
-**Figure 2**: Model Performance By Epoch
-
-Permutation importance analysis of the initial model (using `eli5`) revealed that the most important tweets were those referring to the Ukraine/impeachment scandal. 
-
-![](assets/img/initial_model_importance.png){:height="350px"}
-
-**Figure 3**: Most Important Predictors For Initial Model
+* The use of lookbacks in a time series setting could confound the 
 
 ##### Further Development:
 
-To more systematically probe the importance of various features and hyperparameters, full factorial optimization in predictor and hyperparameter space was carried out using the Cannon cluster. 
-A 3-level dense neural network with 32 `relu` nodes per layer (and a single linear output node) was optimized using the `adam` optimizer. 
-Days of lookback (between 0 and 5), dropout coefficient (between 0 and 0.5), and predictor set were systematically varied and the improvement over the average of 100 *y*-randomized controls calculated.
-50-fold augmentation using random noise was carried out in all cases. 
+
 
 Models were fit on individual predictor sets, with dropout and predictor lookback as described in the following table. Two types of models were fit: a regression model, which attempted to estimate the amount of volatility, and a classification model whose goal it was to predict whether the response value would go up or down in a given day. 
 
-| Augmentation n | % Improvement | Test Loss |
-|----------------|---------------|-----------|
-| 50             | 10.39         | 0.68      |
-| 100            | 3.77          | 0.59      |  
-| 500            | 8.73          | 0.55      |  
 
 
