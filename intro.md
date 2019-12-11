@@ -14,7 +14,7 @@ No American President before Trump has weilded so instantaneous and direct a lin
 
  ![](stocks/p3.png)
  
- (image source: )
+ (image source: https://www.cnbc.com/2019/08/23/us-stocks-wall-street-monitors-speech-from-fed-chair-jerome-powell.html)
 
 On August 22nd 2019, China anounced retaliatory tariffs against the United States. Then at 9:59 the President tweeted saying in part "Our great American companies are hereby ordered to immediately looking for an alternative to China". According to CNBC, shortly thereafter "the Dow Jones Industrial Average fell more than 435 points, or 1.6%, while the S&P 500 slid 1.7% and the Nasdaq Composite dove 2%."
 
