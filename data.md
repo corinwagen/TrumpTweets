@@ -132,14 +132,14 @@ We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW
 
 ![](stocks/normal_dist.png){:width="800px"}
 
-**Figure 8.0a**: Log_normal rv Stock Justification 
+**Figure 8**: Log_normal rv Stock Justification 
 
 
 However, it's important to note that we did this after transforming and normalizing our data.
 
 ![](stocks/LN-explanation.png){:width="800px"}
 
-**Figure 8.0b**: Log_normal rv Stock Justification 
+**Figure 9**: Log_normal rv Stock Justification 
 
 We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
 It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
@@ -150,23 +150,28 @@ This linear combination makes sense because a linear combination of normal rando
 We can see this at work for some individual stocks and exchanges below (they are at least symettric and bell shaped, which is what we wanted:
 
 ![](stocks/AAPL.png){:width="800px"}
+
+**Figure 10**: Apple stock (AAPL)
+
 ![](stocks/SOYB.png){:width="800px"}
+
+**Figure 11**: Commodity Soybean price (SOYB)
+
 ![](stocks/Ln-DJI.png){:width="800px"}
 
+**Figure 12**: Dow Jones (DJI)
 
 Here are two sub-examples: only our Chinese Stocks:
 
 ![](assets/img/image9.png){:width="800px"}
 
-**Figure 8.1**: Aggregate American stock data
+**Figure 13**: Aggregate Chinese stock data
 
 Only our American Stocks:
 
 ![](stocks/amer_stock_prices_logadj.png){:width="800px"}
 
-**Figure 8.2**: Aggregate Chinese stock data
-
-
+**Figure 14**: Aggregate American stock data
 
 #### Bonds:
 
@@ -176,19 +181,25 @@ This was done in RMD but we plan to convert the scripts to Python code for the n
 We will also train on a new response variable: 
 the yield curve (which we will calculate as the difference between the 10 year and two year US bond interest rates and is seen as presaging recession).
 
-To arrive at a rough measure of volatility, we took the difference between the highest and lowest value each day (for 10 year US Treasury bonds) (Figure 9).
+To arrive at a rough measure of volatility, we took the difference between the highest and lowest value each day (for 10 year US Treasury bonds) (Figure 15).
 
 ![](assets/img/image5.png)
 
-**Figure 9**: Daily delta for 10 year US Treasury bonds.
+**Figure 15**: Daily delta for 10 year US Treasury bonds.
 
 
 #### Other:
 
 In addition to stocks and bonds, we will also investigate the effect of the tweets on other potentially relevant economic responses: 
-gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 10).
+gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 16).
 
 ![](assets/img/image10.png)
 
-**Figure 10**: Foreign exchange rates.
+**Figure 16**: Foreign exchange rates.
 
+#### Train/Test Split:
+
+To avoid issues of continuity and causality (especially with lookback predictors), we decided to perform a chronological train/test split, 
+with the last ~95 days of our dataset serving as the test set (complicated somewhat by varying gaps between train and test as the size of lookback increased).
+
+This lead to approximately *n*=590 for the training set and *n*=95 for the test set, which, although small, was sufficient to fit simple neural networks to.  
