@@ -19,9 +19,12 @@ Predictors were combined by day, and each day's data was supplemented with the p
 
 Several different types of response data were modeled with these predictors: (1) Stock Market, (2) Bonds, (3) Gold, (4) Cryptocurrencies and Exchange Rates. These will each be addressed in turn. First, we will show the performance of each predictor dataset on each response set, and second in this and the analysis section on Chinese stocks and Gold, we will further investigate combinations of predictor sets in predicting these particular response variables.
 
-The model architecture is a multi-layer neural network with l layers and n nodes per layer. To test each of the predictor sets individualy, an initial model was build with l=3 and n=32. 
+The model architecture is a multi-layer neural network with l layers and n nodes per layer. To test each of the predictor sets individualy, an initial model was build with l=3 and n=32. After the initial models were trained, these hyperparameters were varied and performance was measured (see below)
+
+##### Stocks:
+
 ###### American Stocks:
-Stocks
+
 Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets.
 
 ![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
@@ -111,5 +114,11 @@ Days of lookback (between 0 and 5), dropout coefficient (between 0 and 0.5), and
 50-fold augmentation using random noise was carried out in all cases. 
 
 Models were fit on individual predictor sets, with dropout and predictor lookback as described in the following table. Two types of models were fit: a regression model, which attempted to estimate the amount of volatility, and a classification model whose goal it was to predict whether the response value would go up or down in a given day. 
+
+| Augmentation n | % Improvement | Test Loss |
+|----------------|---------------|-----------|
+| 50             | 10.39         | 0.68      |
+| 100            | 3.77          | 0.59      |  
+| 500            | 8.73          | 0.55      |  
 
 
