@@ -1,7 +1,6 @@
-# usage - awk -f 'extract_performance.awk' model_info.txt model_performance.txt > model_info.csv
+# usage - awk -f 'extract_ttest.awk' model_performance.txt > ttest_results.csv
 
 # inputs generated with:
-# $ grep "model_name" results/*/results.txt > bond_models.txt
 # $ grep -o -P "Performance.*$" results/*/results.txt > bond_performance.txt
 
 {
