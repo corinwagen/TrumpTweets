@@ -1,26 +1,30 @@
 # TrumpTweets
 _investigating the effect of Donald J. Trump's tweets on the market_
 
-#### Data
+This repository contains the source code for our project analyzing the effect of Trump's tweets on various market indices. 
 
-##### Tweets
+For a full write-up, please see the corresponding [web page](https://corinwagen.github.io/TrumpTweets/index.html). 
 
-`tweets/cleaned_tweets` contains the tweet (predictor) database, which can be loaded with `pd.load_csv`.
+#### Structure:
 
-##### Stocks
+`_layouts`: contains the basic HTML layout for the website
 
-##### Bonds
+`assets`: static files for website (images, CSS)
 
-TYX : 30 year bond data
-TNX : 10 year bond data
-FVX:   5 year bond data
-IRX:  13 week bond data
+`backup`: backed-up datasets
 
-##### Other Response Variables
+`bonds`: code used to generate bond datasets, and the datasets themselves
 
-#### Sources
+`miscdata`: miscellaneous response variables
 
-Tweets taken from the [Trump Twitter Archive](http://www.trumptwitterarchive.com/archive). All tweets between 01/20/2017 and 10/30/2019 were selected (11797 in total).
+`models`: code used to generate and analyze models
 
+`notes`: notes on ideas for project
+
+`stocks`: code used to generate stock datasets, and the datasets themselves
+
+`tweets`: code used to generate and analyze tweet datasets, and the datasets themselves
+
+If you want a sense for how these models operate, `models/run_model.py` is a good place to start!
 
 _Corin Wagen, Priya Veeraraghavan, Aaron Jacobson, and Hayden Joy_
