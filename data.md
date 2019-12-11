@@ -132,6 +132,8 @@ We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW
 
 ![](stocks/normal_dist.png){:width="800px"}
 
+**Figure 8.2**: Log_normal rv Stock Justification 
+
 
 However, it's important to note that we did this after transforming and normalizing our data.
 
@@ -145,11 +147,14 @@ Here are two sub-examples: only our Chinese Stocks:
 
 ![](assets/img/image9.png){:width="800px"}
 
+**Figure 8.1**: Aggregate American stock data
+
 Only our American Stocks:
 
 ![](stocks/amer_stock_prices_logadj.png){:width="800px"}
 
-**Figure 8**: Aggregate Chinese stock data
+**Figure 8.2**: Aggregate Chinese stock data
+
 
 
 #### Bonds:
