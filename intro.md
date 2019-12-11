@@ -12,7 +12,7 @@ filename: intro.md
 
 No American President before Trump has weilded so instantaneous and direct a line of communication to the American public.
 
- ![](stocks/p2.png)
+ ![](stocks/p3.png)
  
  (image source: )
 
