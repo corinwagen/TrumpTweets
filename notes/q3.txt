@@ -1,0 +1,4 @@
+For our baseline model, we were inspired by this paper (http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)
+to use a latent Dirichlet Allocation (LAD) model in conjunction with topic modeling. 
+Additionally, this paper (https://arxiv.org/pdf/1907.04907.pdf) outlines our model that uses word embedding instead of the LAD model. 
+We also use sentiment analysis with the topic modeling, which is described here (http://people.cs.pitt.edu/~huynv/research/aspect-sentiment/Joint%20sentiment%20topic%20model%20for%20sentiment%20analysis.pdf).

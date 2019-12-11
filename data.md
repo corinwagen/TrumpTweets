@@ -132,16 +132,27 @@ We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW
 
 ![](stocks/normal_dist.png){:width="800px"}
 
-**Figure 8.2**: Log_normal rv Stock Justification 
+**Figure 8.0a**: Log_normal rv Stock Justification 
 
 
 However, it's important to note that we did this after transforming and normalizing our data.
+
+![](stocks/LN-explanation.png){:width="800px"}
+
+**Figure 8.0b**: Log_normal rv Stock Justification 
 
 We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
 It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
 We took the log of stock prices, and then averaged the resulting standardized normal normal data to produce a response variable. 
 That is shown below (Figure 8) where the line in black is the average of the stocks. 
 This linear combination makes sense because a linear combination of normal random variables is also normal.
+
+We can see this at work for some individual stocks and exchanges below (they are at least symettric and bell shaped, which is what we wanted:
+
+![](stocks/AAPL.png){:width="800px"}
+![](stocks/SOYB.png){:width="800px"}
+![](stocks/Ln-DJI.png){:width="800px"}
+
 
 Here are two sub-examples: only our Chinese Stocks:
 
