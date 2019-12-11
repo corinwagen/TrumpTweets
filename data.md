@@ -141,7 +141,13 @@ We took the log of stock prices, and then averaged the resulting standardized no
 That is shown below (Figure 8) where the line in black is the average of the stocks. 
 This linear combination makes sense because a linear combination of normal random variables is also normal.
 
+Here are two sub-examples: only our Chinese Stocks:
+
 ![](assets/img/image9.png){:width="800px"}
+
+Only our American Stocks:
+
+![](stocks/amer_stock_prices_logadj.png){:width="800px"}
 
 **Figure 8**: Aggregate Chinese stock data
 
