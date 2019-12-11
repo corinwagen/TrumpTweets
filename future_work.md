@@ -10,8 +10,6 @@ Although the initial results are promising, there is much that could be done to 
 
 Here are just a few of the many ideas we've considered over the course of this project:
 
-##### Improved Data: 
-
 ###### Better and More Random Stock Selection
 
 We could take an average of more stocks (both a simple random sample and a sample of stocks that are particularly vulnerable to the trade war). 
@@ -74,7 +72,7 @@ Autoregression uses previous time steps to predict values at the next time steps
 Below is a [graphic](https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix: each observation is most correlated to the observation it is closest to in time
 (Figure 5).
 
-![](stocks/auto-regressive.png)
+![](stocks/auto-regressive.png){:width="200px"}
 
 **Figure 5**: Auto-regressive covariance matrix
 
