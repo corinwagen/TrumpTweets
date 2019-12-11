@@ -40,10 +40,11 @@ Moving Averages
  ![](stocks/moving_avg_plots/BABA_movavg.png)
   
  ![](stocks/moving_avg_plots/DJI_movavg.png)
+Because we used the exponential moving average call in R which "is a weighted moving average that reduces influences by applying more weight to recent data points () reduction factor 2/(n+1)", we did something very similar to auto-regression, which is described below:
  
 Auto-Regression:
 - a similar concept to moving averages is auto-regression. It similarly uses previous time steps to predict values at the next time steps.
-Here is a [graphic](https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix:
+Below is a [graphic](https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first order autoregressive covariance matrix. Each observation is most correlated to the observation it is closest to in time. 
 
  ![](stocks/auto-regressive.png)
 
@@ -51,9 +52,9 @@ Here is a [graphic](https://www.youtube.com/watch?v=0kaxO0r7PYs) of a first orde
 
  
  Volume information and Momentum
- - In our model, we only looked at volatility as a function of price. However, we could also have included the volume coefficient in some way. We could add the volume term to our model's calculations, but given our log-normal assumptions and justifications for our response transformations, we would probably need to meet with teaching staff to discuss how to do this. Specifically, we did meet with Kevin Rader on Thursday december 5th, and he suggested a simple interday difference to get normal looking histograms for our response variable, which were demonstrated in the "data" section of this website.
+ - In our model, we only looked at volatility as a function of price. However, we could also have included the volume coefficient in some way. We could add the volume term to our model's calculations, but given our log-normal assumptions and justifications for our response transformations, we would probably need to meet with teaching staff to discuss how to do this. Specifically, we did meet with Kevin Rader on Thursday december 5th, and he suggested a simple interday difference to get normal looking histograms for our response variable, which were demonstrated in the ([data](data.md)) section of this website.
  
- - If given more time, we would like to add a momentum term to the model, say to the coffefficient of volume as before. However, we can think of two associated hyper-parameters which would be associated with such a term: the power to which it would be raised as well as a llambda (from regularization) analygous parameter we would need to tune. That is, beta*(Volume random variable) ^ (power coeffient). Optimization would again be challenging here.
+ - If given more time, we would like to add a momentum term to the model, say to the coffefficient of volume as before. However, we can think of two associated hyper-parameters which would be associated with such a term: the power to which it would be raised as well as a λ (from regularization) analygous parameter we would need to tune. That is, beta*(Volume random variable) ^ (power coeffient). Optimization would again be challenging here.
 
 Multiple Stock Response Variables
  - we could better split the response variables and consider response variable splits for example:
