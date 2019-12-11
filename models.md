@@ -66,6 +66,13 @@ However, performance on Chinese stocks was better, and depended on the predictor
 ![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
 ![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
 
+To validate the significance of this models, a top-performing model was refit 500 times and compared with *y*-randomized controls (Figure xx). 
+The mean improvement over random was 18.6%, and the high *t*-statistic of -22.51 (*p* < 1e-90) demonstrates that the model performs significantly better than random. 
+
+![](assets/img/china_ttest.png)
+
+**Figure xx**: Frequent Handles Dataset Enables Modelling of Chinese Stock Volatility
+
 ###### Thirty-Year Treasury Bonds:
 
 Modelling of bond volatility was found to be largely ineffective: although various outliers gave noticeable improvements over *y*-randomized models, 
@@ -90,7 +97,7 @@ Raising dropout coefficients was found to be important to reduce the variance of
 **Figure xx**: Effect of Different Dropout Coefficients on Modelling Gold Volatility
 
 To validate the significance of these models, a top-performing model employing `word2vec` predictors was refit 500 times and compared with *y*-randomized controls: 
-the model consistently outcompeted the controls, as demonstrated by a *t*-statistic of -44.19 (*p* < 1e-200).
+the model consistently outcompeted the controls, as demonstrated by a *t*-statistic of -44.19 (*p* < 1e-200) (Figure xx).
 The mean improvement was 7.3%, in line with the improvement seen earlier (*vide supra*).
 
 ![](assets/img/au_ttest.png)
