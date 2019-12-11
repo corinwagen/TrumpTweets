@@ -4,6 +4,8 @@ layout: default
 filename: analysis.md
 --- 
 
+#### Predictor Analysis:
+
 Several top-performing models were selected for further analysis, in order to obtain insight into the underlying mechanism of prediction. 
 Although the predictive power of these models is, in general, small, 
 we feel that any ability to reproducibly explain the massive complexity of the global stock market is exciting and worthy of further study. 
