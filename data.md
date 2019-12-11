@@ -147,6 +147,13 @@ We took the log of stock prices, and then averaged the resulting standardized no
 That is shown below (Figure 8) where the line in black is the average of the stocks. 
 This linear combination makes sense because a linear combination of normal random variables is also normal.
 
+We can see this at work for some individual stocks and exchanges below (they are at least symettric and bell shaped, which is what we wanted:
+
+![](stocks/AAPL.png){:width="800px"}
+![](stocks/SOYB.png){:width="800px"}
+![](stocks/ln-DJI.png){:width="800px"}
+
+
 Here are two sub-examples: only our Chinese Stocks:
 
 ![](assets/img/image9.png){:width="800px"}
