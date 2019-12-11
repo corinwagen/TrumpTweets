@@ -12,7 +12,8 @@ Only tweets between January 20th, 2017 and October 30th, 2019 were selected, whi
 
 Most metadata were collected automatically through the Trump Twitter Archive, but some (`num_mentions`, `num_retweets`) had to be collected in Python. 
 The tweet text was then sanitized for downstream analysis by removing Twitter-specific marks (e.g. “@”, “#” to denote mentions and hashtags, respectively) and HTML entities (`&amp;`). 
-The tweets were then split into words using the Python library `nltk` (using a pretrained model), and parts of speech were assigned.
+The tweets were then split into words using the Python library `nltk` (using a pretrained model), and parts of speech were assigned. 
+There were approximately 300k distinct words in the corpus of tweets.
 
 ![](assets/img/image6.png)
 
@@ -104,50 +105,49 @@ Using
 #### Stocks:
 
 Stock data was downloaded and compiled using the `BatchGetSymbols` and `Quantmod` packages in R. 
-We put together a simple response variable that was an average of the following stocks after a transformation: BZUN, BABA, MOMO, PDD. 
-The Chinese stocks were selected from [this article](https://www.investors.com/market-trend/stock-market-today/stock-market-rips-higher-trade-optimism-chinese-stocks-make-big-moves/). The American trade war sensitive stocks were selected because of [this article](https://www.cbsnews.com/news/us-china-tariffs-5-american-industries-hit-hardest-by-president-trumps-u-s-china-trade-war/
-), and [this article](https://www.kiplinger.com/slideshow/investing/T052-S001-14-stocks-already-hurt-by-president-trump-tariffs/index.html).
 
-Here are the stocks we selected by category, all of which were selected because they are supposedly highly correlated with the trade war.
+##### Chinese Stocks:
+We put together a simple response variable that was an average of the following stocks after a transformation: Bazun (BZUN), Alibaba (BABA), Momo (MOMO), and Pinduoduo (PDD). 
+These stocks were selected based on [reported sensitivity](https://www.investors.com/market-trend/stock-market-today/stock-market-rips-higher-trade-optimism-chinese-stocks-make-big-moves/)
+to US/China foreign policy. 
 
- Chinese stocks:
- Bazun (BZUN), Alibaba (BABA), MOMO, Pinduoduo (PDD).
- 
- American superconductor, robotics, and technology stocks:
- Nvidia (NVDA), Micron (MU), AMD, Irobot (IRBT), apple (APPL)
- 
- American Farm stocks:
- CORN (literally a corn commodity etf), SOYB (a soybean EFT), Fresh Delmonte Produce (FDP)
- 
- American Retail:
- Best Buy (BBY), Bed Bath and Beyond (BBBY), Macy's (M), JC Penny (JCP),
- 
- American industrials, agricultural vehicles and manufacturing
- 
- General Motors (GM), Deere  [DE] (https://www.deere.com/en/index.html),  Caterpillar Inc. (CAT), PPG Industries (PPG, they are a construction paint company), Hog Global Shipping  (HOG)
+##### American Stocks: 
+American stocks were selected on the basis of reported sensitivity to the US/China trade ware ([source](https://www.cbsnews.com/news/us-china-tariffs-5-american-industries-hit-hardest-by-president-trumps-u-s-china-trade-war/), [source](https://www.kiplinger.com/slideshow/investing/T052-S001-14-stocks-already-hurt-by-president-trump-tariffs/index.html)).
 
+By category, the stocks selected are:
 
-We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW JONES (DJI). We took a weighted average of the 31 stocks and the 3 exchanges: 0.5* (mean of the trade war sensitive stocks) + 0.5* (the mean of the tree exchanges). We averaged our trade-war sensitive stock average with the exchange data in order to revert our response variable a bit towards the mean, in an attempt to avoid overfitting on the particular stocks we selected. This is analygous to the way a mixed-effects model reverts cluster level means towards the global means. Our model response variable is still trade war sensitive, but probably more robust than it would have been had we not taken the above step. In the plot below you can see the aggregations of the stock and exchange data, (the red and blue areas under the curve) as well as the output of the weighted average (in green). We have a normal-ish distribution for these data in the log-space (though with a lower peak and fatter tails), which means our response should be somewhat easy to model. Since we are using Nueral nets, it wasn't essential to have a perfect normal distribution for our response.
+- **American robotics and technology stocks**: Nvidia (NVDA), Micron (MU), AMD (AMD), IRobot (IRBT), and Apple (APPL).
+ 
+- **American farm stocks**: corn commodity ETF (CORN) soybean commodity ETF (SOYB), and Fresh Delmonte Produce (FDP).
+ 
+- **American retail**: Best Buy (BBY), Bed Bath and Beyond (BBBY), Macy's (M), and JC Penny (JCP).
+ 
+- **American industrial/manufacturing**: General Motors (GM), Deere (DE),  Caterpillar (CAT), PPG Industries (PPG), and Hog Global Shipping (HOG).
 
+We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW JONES (DJI). 
+We took a weighted average of the 31 stocks and the 3 exchanges: 0.5* (mean of the trade war sensitive stocks) + 0.5* (the mean of the tree exchanges). 
+We averaged our trade-war sensitive stock average with the exchange data in order to revert our response variable towards the mean 
+in an attempt to avoid overfitting on the particular stocks we selected. 
+This is analogous how mixed-effects models revert cluster-level means towards the global mean. 
+Our model response variable is still trade war-sensitive, but presumably more robust than it would have been had we not taken the above step. 
+
+In the plot below you can see the aggregations of the stock and exchange data (red/blue, respectively) as well as the output of the weighted average (green) (Figure 8).
+The observed pseudo-normal distribution for these data in log-space (though with a lower peak and fatter tails) is beneficial for modelling purposes
+(although a normal distribution is not required for neural nets).
 
 ![](stocks/normal_dist.png){:width="800px"}
 
 **Figure 8**: Log_normal rv Stock Justification 
 
-
-However, it's important to note that we did this after transforming and normalizing our data.
-
 ![](stocks/LN-explanation.png){:width="800px"}
 
 **Figure 9**: Log_normal rv Stock Justification 
 
-We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
-It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
-We took the log of stock prices, and then averaged the resulting standardized normal normal data to produce a response variable. 
-That is shown below (Figure 8) where the line in black is the average of the stocks. 
-This linear combination makes sense because a linear combination of normal random variables is also normal.
+We assumed that the stocks were log-normally distributed, as is assumed by the Black-Sholes equation, because the support is non-negative and is right skewed. 
+We took the log of stock prices, and then averaged the resulting standardized normal data to produce a response variable
+(which is justified because a linear combination of normal random variables is also normal).
 
-We can see this at work for some individual stocks and exchanges below (they are at least symettric and bell shaped, which is what we wanted:
+We can see this at work for some individual stocks and exchanges below (Figures 10--12):
 
 ![](stocks/AAPL.png){:width="800px"}
 
@@ -161,25 +161,20 @@ We can see this at work for some individual stocks and exchanges below (they are
 
 **Figure 12**: Dow Jones (DJI)
 
-Here are two sub-examples: only our Chinese Stocks:
+And pictured for aggregate Chinese (Figure 13) and American (Figure 14) data:
 
 ![](assets/img/image9.png){:width="800px"}
 
-**Figure 13**: Aggregate Chinese stock data
-
-Only our American Stocks:
+**Figure 13**: Aggregate Chinese stock data (average shown in black)
 
 ![](stocks/amer_stock_prices_logadj.png){:width="800px"}
 
-**Figure 14**: Aggregate American stock data
+**Figure 14**: Aggregate American stock data (average shown in black)
 
 #### Bonds:
 
 We downloaded US bond data for varying time cycles directly from Yahoo Finance. 
 The resulting data (which had many missing values) was imported in R and cleaned using `na.approx` from the `zoo` package.
-This was done in RMD but we plan to convert the scripts to Python code for the next stage of the project.
-We will also train on a new response variable: 
-the yield curve (which we will calculate as the difference between the 10 year and two year US bond interest rates and is seen as presaging recession).
 
 To arrive at a rough measure of volatility, we took the difference between the highest and lowest value each day (for 10 year US Treasury bonds) (Figure 15).
 
@@ -187,15 +182,16 @@ To arrive at a rough measure of volatility, we took the difference between the h
 
 **Figure 15**: Daily delta for 10 year US Treasury bonds.
 
-
 #### Other:
 
-In addition to stocks and bonds, we will also investigate the effect of the tweets on other potentially relevant economic responses: 
+In addition to stocks and bonds, other potentially relevant economic responses were also obtained, namely
 gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the currencies of Canada, China, Mexico, and Russia (Figure 16).
 
 ![](assets/img/image10.png)
 
 **Figure 16**: Foreign exchange rates.
+
+Volatility for these data was calculated analogously to bonds. 
 
 #### Train/Test Split:
 
