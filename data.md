@@ -132,10 +132,14 @@ We then downloaded the averages of the NYSE (NYA), the NASDAQ (IXIC) and the DOW
 
 ![](stocks/normal_dist.png){:width="800px"}
 
-**Figure 8.2**: Log_normal rv Stock Justification 
+**Figure 8.0a**: Log_normal rv Stock Justification 
 
 
 However, it's important to note that we did this after transforming and normalizing our data.
+
+![](stocks/LN-explanation.png){:width="800px"}
+
+**Figure 8.0b**: Log_normal rv Stock Justification 
 
 We assumed that the stocks were log-normally distributed as is assumed by the Black-Sholes equation. 
 It is useful, as is taught as the standard in STAT 123 because the support is non-negative and is right skewed. 
