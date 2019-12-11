@@ -28,7 +28,7 @@ Our ability to design models to address this problem difficult problem is chalen
 
 
 
- ![](stocks/p1)
+ ![](stocks/p1.png)
  
  (image source: https://www.pinterest.com/pin/765049055427783076/)
 
