@@ -1,4 +1,14 @@
-For our baseline model, we were inspired by this paper (http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)
+For our baseline model, we were inspired by this paper (http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf) 
 to use a latent Dirichlet Allocation (LAD) model in conjunction with topic modeling. 
 Additionally, this paper (https://arxiv.org/pdf/1907.04907.pdf) outlines our model that uses word embedding instead of the LAD model. 
-We also use sentiment analysis with the topic modeling, which is described here (http://people.cs.pitt.edu/~huynv/research/aspect-sentiment/Joint%20sentiment%20topic%20model%20for%20sentiment%20analysis.pdf).
+We also use sentiment analysis with the topic modeling, which is described here 
+(http://people.cs.pitt.edu/~huynv/research/aspect-sentiment/Joint%20sentiment%20topic%20model%20for%20sentiment%20analysis.pdf).
+
+Similar projects have been done previously, namely, using Twitter text data to predict stock prices. This study (http://first.ijs.si/FirstShowcase/Content/pub/HCI-KDD-2013.pdf)
+used sentiment analysis with SVM classification to categorize tweets into positive, negative, and neutral, and tried to determine whether
+the mood of tweets about a specific company impacts its stock price. Here (https://arxiv.org/pdf/1610.09225.pdf) is another related study,
+which also used sentiment analysis and word2vec embeddings to see whether public opinion of a company affects its stock.
+This one (https://arxiv.org/pdf/1010.3003.pdf) takes a more general approach. Rather than focus on specific tweets, they collected random
+ones to find out whether general overall mood affects the Dow Jones Industrial Average over time. Their primary models used the package OpinionFinder,
+which is a sentiment analysis tool to classify text as positive or negative, and an expansion that they created called GPOMS
+which classifies into six mood possibilities instead of two.
