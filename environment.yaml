@@ -1,0 +1,15 @@
+name: cs109 
+dependencies:  
+- python=3.6  
+- tensorflow=2.0.0  
+- jupyter  
+- seaborn  
+- scikit-learn  
+- statsmodels  
+- pip  
+- numpy  
+- pandas  
+- matplotlib  
+- pillow  
+- requests  
+- ipython
