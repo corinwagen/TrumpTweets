@@ -39,6 +39,12 @@ capture the content of Trump's tweets, and the problems associated with delayed 
 we have been able to achieve limited success and---more importantly---learn valuable lessons about the shortcomings of our work, and opportunities for future researchers to make headway
 in this important area. 
 
+Our ability to design models to address this problem difficult problem is chalenging because Trump's tweets tend to affect the market instantaneously, while we only have access to inter-day prices. 
+
+The markets, as mass activity of billions of people, millions of companies and trillions of dollars are a nigh on impossibly complex system to imagine. It is impossible that one man's tweets can alone change the tradjectory of markets, so we were actually impressed by the limited successof our method. More importantly, as our work came together over the final week, many powerful and interesting extensions revealed themselves which was exciting and indicative of time well spent.
+
+
+
 ##### Previous Work: 
 
 
