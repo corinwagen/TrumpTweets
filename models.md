@@ -70,18 +70,20 @@ The percent dropout at each layer was another hyperparameter that was systematic
 Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets (Figure 1).
 
 ![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
+
 ![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
 
-**Figure 4** Effect of Different Predictor Sets on Modelling American stock Volatility
+**Figure 4** Effect of Different Predictor Sets on Modelling American Stock Volatility
 
 ###### Chinese Stocks:
 
 However, performance on Chinese stocks was better, and depended on the predictor set. In general, for both classification and for regression, the users either retweeted or mentioned in Trump's tweets were predictive of Chinese stock market volatility (Figure 5). 
 
 ![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
+
 ![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
 
-**Figure 5** Effect of Different Predictor Sets on Modelling Chinese stock Volatility
+**Figure 5** Effect of Different Predictor Sets on Modelling Chinese Stock Volatility
 
 To validate the significance of this models, a top-performing model was refit 500 times and compared with *y*-randomized controls (Figure 6). 
 The mean improvement over random was 18.6%, and the high *t*-statistic of -22.51 (*p* < 1e-90) demonstrates that the model performs significantly better than random. 
