@@ -170,10 +170,10 @@ To further investigate this variability, we looked at the training runs and test
 
 | Dropout | Model Performance: (l) Training run loss (r) Test set actual vs predicted |
 |---------|---------------------------------------------------------------------------|
-| 0.1     |![](assets/img/model_808_performance.png){:width="800px"}|
-| 0.2     |![](assets/img/model_809_performance.png){:width="800px"}|
-| 0.5     |![](assets/img/model_812_performance.png){:width="800px"}|
-| 0.6     |![](assets/img/model_813_performance.png){:width="800px"}|
+| 0.1     |![](assets/img/model_808_performance.png){:width="1200px"}|
+| 0.2     |![](assets/img/model_809_performance.png){:width="1200px"}|
+| 0.5     |![](assets/img/model_812_performance.png){:width="1200px"}|
+| 0.6     |![](assets/img/model_813_performance.png){:width="1200px"}|
 
 **Figure 15**: Mid-level dropout causes model instability
 
