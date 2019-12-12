@@ -15,6 +15,9 @@ The tweet text was then sanitized for downstream analysis by removing Twitter-sp
 The tweets were then split into words using the Python library `nltk` (using a pretrained model), and parts of speech were assigned. 
 There were approximately 300k distinct words in the corpus of tweets.
 
+For these predictors, and all subsequent predictors, a conversion from "per tweet" to "per day" was performed (by summing the rows for all the tweets in a given day). 
+This reduced the size of the dataset drastically, but was necessary to align the predictors with our temporal response variable.
+
 ![](assets/img/image6.png)
 
 **Figure 1**: Histograms of tweet metadata and selected descriptors.
@@ -193,9 +196,3 @@ gold, oil, bitcoin, and the foreign exchange rates of the US dollar against the 
 
 Volatility for these data was calculated analogously to bonds. 
 
-#### Train/Test Split:
-
-To avoid issues of continuity and causality (especially with lookback predictors), we decided to perform a chronological train/test split, 
-with the last ~95 days of our dataset serving as the test set (complicated somewhat by varying gaps between train and test as the size of lookback increased).
-
-This lead to approximately *n*=590 for the training set and *n*=95 for the test set, which, although small, was sufficient to fit simple neural networks to.  
