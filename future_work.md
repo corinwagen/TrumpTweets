@@ -16,14 +16,13 @@ We could also weight stocks by how much total money is being traded per stock, w
 
 ##### Better Data Augmentation:
 
+One of the largest challenges we faced with these particular data was the lack of abundant training examples. This is particularly challenging in the realm of hundreds-of-thousands-of-dimension word space, in which many words are related, yet nuanced in meaning. Our approach of embedding this large word space using previously trained skipgram embeddings (`word2vec`) indicates that using prior knowledge of word meanings is especially crucial in this context of limited data. However, we realized that the `word2vec` model is slightly outdated and might not encapsulate all the Twitter colloquialisms of today. This would motivate the creation of an updated skipgram that is trained on tweets from all of Twitter.
+
+Another approach to increase the dataset size would be to train models on subsets of the tweets from each day: instead of combining all the tweets from every day into a single combined variable, 
+tweets could be sampled with replacement to generate many distinct rows of data from each day. One concern with this approach is that there might only be one tweet of many in a given day that is relevant for stock prices, so the response variable may have to incorporate uncertainty in this potential model. 
+
 As mentioned previously ([*vide supra*](models.md)), applying purely numerical data augmentation to the final predictor set had a profound effect on model quality. 
 Due to time, we were unable to experiment with more sophisticated ways to augment the data, but there is almost certainly a more effective way than simply adding a random variable!
-
-One approach would be to augment Trump's corpus of tweets by using synonyms to generate new Trump-like tweets, and replacing the original tweet with these synonym-containing tweets.
-These new tweets would likely have similar, but distinct, `word2vec` encodings and topic embeddings, and could be used to train a more robust model. 
-
-Another approach would be to train models on subsets of the tweets from each day: instead of combining all the tweets from every day into a single combined variable, 
-tweets could be sampled with replacement to generate many distinct rows of data from each day. 
 
 ##### More Sophisticated Sentiment Analysis:
 
@@ -95,6 +94,7 @@ However, the probabilities of these multiple response variables might be linked 
 
 ##### More Sophisticated Models:
 
-Due to the small size of the dataset in this study, we opted to employ a simple 3-layer dense neural network. 
-However, it is likely that more complex neural network architectures (e.g. recurrent neural networks) might prove better-suited to the task at hand. 
+Due to the small size of the dataset in this study, we opted to employ a simple 3-layer dense neural network. Future modifications could vary the number of nodes between layers, as well as perform dropout on only specific layers. Potentially this could be useful in the context of the input layer, as some particular predictor dimensions could be especially important for good prediction. Dropping out a critical dimension of the predictor might critically handicap the model. Therefore, we would investigate dropout on only the hidden dimensions in future models. 
+However, even with these modifications, it is likely that more complex neural network architectures (e.g. recurrent neural networks) might prove better-suited to the task at hand. 
 Advances in data augmentation or transfer learning might allow for such advances to be applied here in the future.
+
