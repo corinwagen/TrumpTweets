@@ -81,7 +81,7 @@ However, performance on Chinese stocks was better, and depended on the predictor
 
 ![](assets/img/chinese_stocks_1.single_predictor_set.regressor_pct_improvement.png)
 
-![](assets/img/chinese_stocks_1.single_predictor_set.classifier_auc.png)
+![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png)
 
 **Figure 5** Effect of Different Predictor Sets on Modelling Chinese Stock Volatility
 
