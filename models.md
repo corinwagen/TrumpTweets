@@ -65,6 +65,7 @@ Individual predictor sets were fit on aggregated stock market data from the Unit
 
 ![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
 ![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
+**Figure 4** Effect of Different Predictor Sets on Modelling American stock Volatility
 
 ###### Chinese Stocks:
 
@@ -72,13 +73,14 @@ However, performance on Chinese stocks was better, and depended on the predictor
 
 ![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
 ![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
+**Figure 5** Effect of Different Predictor Sets on Modelling Chinese stock Volatility
 
-To validate the significance of this models, a top-performing model was refit 500 times and compared with *y*-randomized controls (Figure xx). 
+To validate the significance of this models, a top-performing model was refit 500 times and compared with *y*-randomized controls (Figure 6). 
 The mean improvement over random was 18.6%, and the high *t*-statistic of -22.51 (*p* < 1e-90) demonstrates that the model performs significantly better than random. 
 
 ![](assets/img/china_ttest.png)
 
-**Figure xx**: Frequent Handles Dataset Enables Modelling of Chinese Stock Volatility
+**Figure 6**: Frequent Handles Dataset Enables Modelling of Chinese Stock Volatility
 
 ###### Thirty-Year Treasury Bonds:
 
@@ -88,7 +90,7 @@ Accordingly, these models were not investigated further.
 
 ![](assets/img/bond_predictors.png)
 
-**Figure xx**: Effect of Different Predictor Sets on Modelling Bond Volatility
+**Figure 7**: Effect of Different Predictor Sets on Modelling Bond Volatility
 
 ###### Gold Prices:
 
@@ -97,11 +99,11 @@ Raising dropout coefficients was found to be important to reduce the variance of
 
 ![](assets/img/au_predictors.png)
 
-**Figure xx**: Effect of Different Predictor Sets on Modelling Gold Volatility
+**Figure 8**: Effect of Different Predictor Sets on Modelling Gold Volatility
 
 ![](assets/img/au_dropout.png)
 
-**Figure xx**: Effect of Different Dropout Coefficients on Modelling Gold Volatility
+**Figure 9**: Effect of Different Dropout Coefficients on Modelling Gold Volatility
 
 To validate the significance of these models, a top-performing model employing `word2vec` predictors was refit 500 times and compared with *y*-randomized controls: 
 the model consistently outcompeted the controls, as demonstrated by a *t*-statistic of -44.19 (*p* < 1e-200) (Figure xx).
@@ -109,19 +111,21 @@ The mean improvement was 7.3%, in line with the improvement seen earlier (*vide 
 
 ![](assets/img/au_ttest.png)
 
-**Figure xx**: `word2vec`-based Models Consistently Perform Better Than Chance
+**Figure 10**: `word2vec`-based Models Consistently Perform Better Than Chance
 
 ###### Cryptocurrencies and Exchange Rates:
 
-Modeling volatility in cryptocurrencies and in foreign exchange rates (namely, the Canadian dollar (CAD) and the Russian ruble (RUB)), on single predictor sets that had performed well in the context of other responses (namely keyword embeddings, document embeddings, and handles of people mentioned in tweets), did not yield significant improvements over random (Figure XXX).
+Modeling volatility in cryptocurrencies and in foreign exchange rates (namely, the Canadian dollar (CAD) and the Russian ruble (RUB)), on single predictor sets that had performed well in the context of other responses (namely keyword embeddings, document embeddings, and handles of people mentioned in tweets), did not yield significant improvements over random (Figure 11).
 
 ![](assets/img/currencies_exchange_1.percent_improvement.png)
 
+**Figure 11**: Effect of Different Predictor Sets on Modelling Cryptocurrency and Exchange Rate Volatility
+
 #### Model optimization on multiple predictor datasets
 
-We next asked whether nonredundant, predictive information could be extracted from multiple predictor datasets. For this analysis, we focused on the Chinese Stock Market volatility and RUB-USD exchange rate as response variables. The top performing predictors were `word2vec` embeddings and twitter handles, so we first combined these two predictor sets. We included the appropriate lookback for the best performing models: in the case of the Chinese Stock Market, the best performing models had 5 days of lookback, and in the case of RUB-USD exchange rates, the best performing models had 1 day of lookback. We trained models with the identical architecture (3 layers, 32 nodes each) and dropout rate (0.3) as in the single predictor set models, in order to assess the effects of the increased number of predictors on this architecture. 
+We next asked whether nonredundant, predictive information could be extracted from multiple predictor datasets. For this analysis, we focused on the Chinese Stock Market volatility as a response variable. The top performing predictors were `word2vec` embeddings and twitter handles, so we first combined these two predictor sets. We included the appropriate lookback for the best performing models: in the case of the Chinese Stock Market, the best performing models had 5 days of lookback. We trained models with the identical architecture (3 layers, 32 nodes each) and dropout rate (0.3) as in the single predictor set models, in order to assess the effects of the increased number of predictors on this architecture. 
 
-Notably, the test loss increased signficantly, and the percent improvement over random decreased. This is illustrated in Table XX, which compares the model performance between the single predictor and the combined predictors, using an identical architecture to the single predictor. This table suggests that the model with more predictors was overfit to the dataset, because the training set loss diverges from the test set loss.* Overfitting would be expected from this increase in predictors, because the number of parameters (weights) in the model increases, but the number of training examples stays the same. This effect did not appear to be rescued through augmenting the dataset with more synthetic datapoints (although it is possible that different augmentation strategies could be employed in the future, see Future Directions).
+Notably, the test loss increased signficantly, and the percent improvement over random decreased. This is illustrated in Table 1, which compares the model performance between the single predictor and the combined predictors, using an identical architecture to the single predictor. This table suggests that the model with more predictors was overfit to the dataset, because the training set loss diverges from the test set loss.* Overfitting would be expected from this increase in predictors, because the number of parameters (weights) in the model increases, but the number of training examples stays the same. This effect did not appear to be rescued through augmenting the dataset with more synthetic datapoints (although it is possible that different augmentation strategies could be employed in the future, see Future Directions).
 
 | Predictors         | Augmentation n | % Improvement | Test Loss | Training Loss | Validation Loss |
 |--------------------|----------------|---------------|-----------|---------------|-----------------|
@@ -132,18 +136,22 @@ Notably, the test loss increased signficantly, and the percent improvement over 
 | Word2Vec + Handles | 100            | 3.77          | 0.599     | 0.058         | 0.011           |
 | Word2Vec + Handles | 500            | 8.73          | 0.551     | 0.058         | 0.013           |
 
+**Table 1**: Effect of Additional Predictor Sets and Data Augmentation on Modelling Chinese stocks
 
-We next explored whether changes in model architecture or dropout could prevent overfitting, while taking advantage of the added information of more predictors. We systematically varied model architecture parameters of number of layers and number of nodes per layer. Figure XX shows visually the test set loss vs the training set loss, colored by particular hyperparameters. The losses are anticorrelated, which represents a bias-variance tradeoff; this is best seen in the far left plot, which looks at different amounts of dropout. Low dropout results in an overfit model with poor test set performance, whereas higher dropout can improve generalization (although dropout that is too high effectively handicaps the model and worsens training and test set performance). The plot on the right showing the total number of nodes (nodes per layer * number of layers) does not show a strong correlation of a particular number of nodes with a particular test or training set performance. 
+We next explored whether changes in model architecture or dropout could prevent overfitting, while taking advantage of the added information of more predictors. We systematically varied model architecture parameters of number of layers and number of nodes per layer. Figure 12 shows visually the test set loss vs the training set loss, colored by particular hyperparameters. The losses are anticorrelated, which represents a bias-variance tradeoff; this is best seen in the far left plot, which looks at different amounts of dropout. Low dropout results in an overfit model with poor test set performance, whereas higher dropout can improve generalization (although dropout that is too high effectively handicaps the model and worsens training and test set performance). The plot on the right showing the total number of nodes (nodes per layer * number of layers) does not show a strong correlation of a particular number of nodes with a particular test or training set performance. 
 
 ![](assets/img/china_stock_regression.model_architecture_test_train_analysis.png)
+**Figure 12**: Many 'lookback' predictors cause model overfitting
 
-Given that these modifications of the architecture did not appear to substantially improve prediction, we hypothesized that decreasing the number of lookbacks for particularly large predictor sets would reduce the number of trainable parameters, therefore mitigating some of the overfitting. We chose to shrink the `word2vec` embeddings predictors (300 predictors total) to include only those from the current day (though in the future, we would systematically individually tune lookbacks for every predictor set). We trained multiple models, varying the number of layers [2, 3, or 4], and the number of nodes per layer [32, 64, 12]. The dataset augmentation was 250-fold and dropout was 0.5. We observed the percent improvement of the model over random as a function of the number of trainable parameters in the model, and unsurprisingly found that fewer parameters in the model caused a significant increase in performance, as measured by percent improvement. 
+Given that these modifications of the architecture did not appear to substantially improve prediction, we hypothesized that decreasing the number of lookbacks for particularly large predictor sets would reduce the number of trainable parameters, therefore mitigating some of the overfitting. We chose to shrink the `word2vec` embeddings predictors (300 predictors total) to include only those from the current day (though in the future, we would systematically individually tune lookbacks for every predictor set). We trained multiple models, varying the number of layers [2, 3, or 4], and the number of nodes per layer [32, 64, 12]. The dataset augmentation was 250-fold and dropout was 0.6. We observed the percent improvement of the model over random as a function of the number of trainable parameters in the model, and unsurprisingly found that fewer parameters in the model caused a significant increase in performance, as measured by percent improvement. 
 
 ![](assets/img/params_percent_improvement.png)
+**Figure 13**: Reducing number of model parameters results in improved model performance
 
 We next chose the best performing model: 4 layers with 32 nodes, and varied the dropout during training from 0.0 to 0.7. Over 11 independent training runs of each dropout, it is evident that increasing dropout in general helpful in both increasing Percent Improvement over random as well as the test loss (Figure XX). However, there is very high variability in model performance at dropout of 0.4 and 0.5. 
 
 ![](assets/img/test_loss_dropout_percent_improvement.png)
+**Figure 14**: Low dropout improves model performance on both the training and test sets
 
 To further investigate this variability, we looked at the training runs and test set predictions for exemplar models with varied dropout (Figure XYZ). At low levels of dropout, the model overfits somewhat to the training set; as low as 20% dropout, the test set performance improves over training set performance. However, at 50% dropout, the model is completely unstable, with most predictions a flat line at 0.25 daily delta. At higher dropout, the performance on the training set again decreases, but the test set predictions recover. 
 
@@ -153,31 +161,8 @@ To further investigate this variability, we looked at the training runs and test
 | 0.2     |![](assets/img/model_809_performance.png)|
 | 0.5     |![](assets/img/model_812_performance.png)|
 | 0.6     |![](assets/img/model_813_performance.png)|
+**Figure 15**: Mid-level dropout causes model instability
 
-
-
-| Predictors         | Augmentation n | % Improvement | Test Loss | Training Loss | Validation Loss |
-|--------------------|----------------|---------------|-----------|---------------|-----------------|
-| Word2Vec + Handles | 250            | 29.67         | 0.386     | 0.352         | 0.234           |
-
-
-
-* The use of lookbacks in a time series setting could confound the 
-
-#### Further Development:
-
-###### Data Augmentation
-
-One of the largest challenges we faced with these particular data was the lack of abundant training examples. This is particularly challenging in the realm of hundreds-of-thousands-of-dimension word space, in which many words are related, yet nuanced in meaning. Our approach of embedding this large word space using previously trained skipgram embeddings (`word2vec`) indicates that using prior knowledge of word meanings is especially crucial in this context of limited data. However, we realized that the `word2vec` model is slightly outdated and might not encapsulate all the Twitter colloquialisms of today. This would motivate the creation of an updated skipgram that is trained on tweets from all of Twitter. Furthermore, even with fairly complete word embeddings, we still needed to synthetically create a larger training set in order to prevent the model from overfitting. 
-
-Our second challenge is one of 
-
-###### Model Architecture & Training
-Model architecture was overall kept quite standard: the layers all had the same number of nodes, and during training, the dropout was always the same for each layer. Future modifications could vary the number of nodes between layers, as well as perform dropout on only specific layers. Potentially this could be useful in the context of the input layer, as some particular predictor dimensions could be especially important for good prediction. Dropping out a critical dimension of the predictor might critically handicap the model. Therefore, we would investigate dropout on only the hidden dimensions in future models. 
-
-
-
-Models were fit on individual predictor sets, with dropout and predictor lookback as described in the following table. Two types of models were fit: a regression model, which attempted to estimate the amount of volatility, and a classification model whose goal it was to predict whether the response value would go up or down in a given day. 
-
+Overall, the 'optimal' model for this dataset is one in which validation set performance is predictive of test set performance. However, in these models, we observed that validation set performance tended to track more closely with the training set performance. This might suggest that, due to the addition of 'lookback' predictors or to the data augmentation, the validation set is allowed to 'peak' at the training set, and therefore perform better than it should. Further investigation should be undertaken to investigate the effects of lookback predictors and data augmentation on validation performance in particular.
 
 
