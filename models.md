@@ -147,12 +147,12 @@ We next chose the best performing model: 4 layers with 32 nodes, and varied the 
 
 To further investigate this variability, we looked at the training runs and test set predictions for exemplar models with varied dropout (Figure XYZ). At low levels of dropout, the model overfits somewhat to the training set; as low as 20% dropout, the test set performance improves over training set performance. However, at 50% dropout, the model is completely unstable, with most predictions a flat line at 0.25 daily delta. At higher dropout, the performance on the training set again decreases, but the test set predictions recover. 
 
-| Dropout |                     |
-|---------|---------------------|
+| Dropout | Model Performance: (l) Training run loss (r) Test set actual vs predicted |
+|---------|---------------------------------------------------------------------------|
 | 0.1     |![](assets/img/model_808_performance.png)|
 | 0.2     |![](assets/img/model_809_performance.png)|
-
-
+| 0.5     |![](assets/img/model_812_performance.png)|
+| 0.6     |![](assets/img/model_813_performance.png)|
 
 
 
