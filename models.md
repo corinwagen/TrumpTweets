@@ -71,6 +71,7 @@ Individual predictor sets were fit on aggregated stock market data from the Unit
 
 ![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png')
 ![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png')
+
 **Figure 4** Effect of Different Predictor Sets on Modelling American stock Volatility
 
 ###### Chinese Stocks:
@@ -79,6 +80,7 @@ However, performance on Chinese stocks was better, and depended on the predictor
 
 ![](assets/img/chinese_stocks1.single_predictor_set.regressor_pct_improvement.png')
 ![](assets/img/chinese_stocks1.single_predictor_set.classifier_auc.png')
+
 **Figure 5** Effect of Different Predictor Sets on Modelling Chinese stock Volatility
 
 To validate the significance of this models, a top-performing model was refit 500 times and compared with *y*-randomized controls (Figure 6). 
@@ -149,16 +151,19 @@ Overfitting would be expected from this increase in predictors, because the numb
 We next explored whether changes in model architecture or dropout could prevent overfitting, while taking advantage of the added information of more predictors. We systematically varied model architecture parameters of number of layers and number of nodes per layer. Figure 12 shows visually the test set loss vs the training set loss, colored by particular hyperparameters. The losses are anticorrelated, which represents a bias-variance tradeoff; this is best seen in the far left plot, which looks at different amounts of dropout. Low dropout results in an overfit model with poor test set performance, whereas higher dropout can improve generalization (although dropout that is too high effectively handicaps the model and worsens training and test set performance). The plot on the right showing the total number of nodes (nodes per layer * number of layers) does not show a strong correlation of a particular number of nodes with a particular test or training set performance. 
 
 ![](assets/img/china_stock_regression.model_architecture_test_train_analysis.png)
+
 **Figure 12**: Many 'lookback' predictors cause model overfitting
 
 Given that these modifications of the architecture did not appear to substantially improve prediction, we hypothesized that decreasing the number of lookbacks for particularly large predictor sets would reduce the number of trainable parameters, therefore mitigating some of the overfitting. We chose to shrink the `word2vec` embeddings predictors (300 predictors total) to include only those from the current day (though in the future, we would systematically individually tune lookbacks for every predictor set). We trained multiple models, varying the number of layers [2, 3, or 4], and the number of nodes per layer [32, 64, 12]. The dataset augmentation was 250-fold and dropout was 0.6. We observed the percent improvement of the model over random as a function of the number of trainable parameters in the model, and unsurprisingly found that fewer parameters in the model caused a significant increase in performance, as measured by percent improvement (Figure 13).
 
 ![](assets/img/params_percent_improvement.png)
+
 **Figure 13**: Reducing number of model parameters results in improved model performance
 
 We next chose the best performing model: 4 layers with 32 nodes, and varied the dropout during training from 0.0 to 0.7. Over 11 independent training runs of each dropout, it is evident that increasing dropout in general helpful in both increasing Percent Improvement over random as well as the test loss (Figure 14). However, there is very high variability in model performance at dropout of 0.4 and 0.5. 
 
 ![](assets/img/test_loss_dropout_percent_improvement.png)
+
 **Figure 14**: Low dropout improves model performance on both the training and test sets
 
 To further investigate this variability, we looked at the training runs and test set predictions for exemplar models with varied dropout (Figure 15). At low levels of dropout, the model overfits somewhat to the training set; as low as 20% dropout, the test set performance improves over training set performance. However, at 50% dropout, the model is completely unstable, with most predictions a flat line at 0.25 daily delta. At higher dropout, the performance on the training set again decreases, but the test set predictions recover. 
@@ -169,6 +174,7 @@ To further investigate this variability, we looked at the training runs and test
 | 0.2     |![](assets/img/model_809_performance.png){:width="800px"}|
 | 0.5     |![](assets/img/model_812_performance.png){:width="800px"}|
 | 0.6     |![](assets/img/model_813_performance.png){:width="800px"}|
+
 **Figure 15**: Mid-level dropout causes model instability
 
 Overall, the 'optimal' model for this dataset is one in which validation set performance is predictive of test set performance. However, in these models, we observed that validation set performance tended to track more closely with the training set performance. This might suggest that, due to the addition of 'lookback' predictors or to the data augmentation, the validation set is allowed to 'peak' at the training set, and therefore perform better than it should. Further investigation should be undertaken to investigate the effects of lookback predictors and data augmentation on validation performance in particular.
