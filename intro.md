@@ -51,26 +51,30 @@ One approach to modelling tweets that we pursued was topic modelling, which mode
 Although tracing the precise genesis and evolution of this idea could be a review article in its own right, the reference we found most inspiring was by Jordan and coworkers, from 2003,
 which applied an approach they termed *latent Dirichlet allocation* to perform dimensionality reduction for large bodies of text (Ref. 1). 
 
+Another complementary approach to modeling text data is word embeddings. Word space is many hundreds of thousands of dimensions (one dimension per word in discrete space), but word meanings can be embedded in a smaller, continous space. One type of model that learns word representations is Word2Vec, which is a group of models trained by Google to estimate word embeddings in 300-dimensional space. Similaries between words can be captured by cosine similarities in vector space. (Ref. 2).
+
 A more recent (and advanced) version of topic modelling, which uses word embeddings to improve performance on large and irregular bodies of text, was also helpful for shaping our
-approach (although we did not ultimately employ this precise method) (Ref. 2). 
+approach (although we did not ultimately employ this precise method) (Ref. 3). 
 
 Another approach which we used to model Twitter data was sentiment analysis, which attempts to classify the emotions behind a piece of text. Passonneau and coworkers employed
-this strategy to categorize tweets into positive, negative, or neutral, which is akin to the one-dimensional sentiment response variable we used (Ref. 3).  
+this strategy to categorize tweets into positive, negative, or neutral, which is akin to the one-dimensional sentiment response variable we used (Ref. 4).  
 
-Sentiment analysis has also been used to train a SVM to predict a given company's stock prices based on tweets about that company, with moderate success (Ref. 4). 
+Sentiment analysis has also been used to train a SVM to predict a given company's stock prices based on tweets about that company, with moderate success (Ref. 5). 
 (Notably, there was found to be a sizeable delay between tweets about a company and the corresponding stock changes, which emphasizes the importance of lookback predictors). 
-A related paper which used randomly-sampled tweets to predict overall market performance (more akin to this project) also used various forms of sentiment analysis to describe their tweets (Ref. 5.).
+A related paper which used randomly-sampled tweets to predict overall market performance (more akin to this project) also used various forms of sentiment analysis to describe their tweets (Ref. 6.).
 
 ##### Market Analysis: 
 
-The log-normal description of stocks employed here was adapted from Blyth's *Introduction to Quantitative Finance* (Ref. 6).
-Additional theoretical support for our approach came from Blitzstein and Hwang's *Introduction to Probability* (Ref. 7).
+The log-normal description of stocks employed here was adapted from Blyth's *Introduction to Quantitative Finance* (Ref. 7).
+Additional theoretical support for our approach came from Blitzstein and Hwang's *Introduction to Probability* (Ref. 8).
 
 Our approach to modelling stocks with moving averages was informed by Malcius's review on the use of moving averages in finance (Ref. 8).
 
 #### References: 
 
 1. Blei, D. M.; Ng, A. Y.; Jordan, M. I. [Latent Dirichlet Allocation](http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf). *J. Mach. Learn. Res.* **2003**, *3*, 993--1002.
+
+1. Mikolov, T.; Chen, K.; Corrado, G.; Dean, J. [Efficient Estimation of Word Representations in Vector Space]. *Proceedings of Workshop at ICLR* **2013**.
 
 1. Dieng, A. B.; Ruiz, F. J. R.; Blei, D. M. [Topic Modelling in Embedding Spaces](https://arxiv.org/pdf/1907.04907.pdf). **2019**, arXiv:1907.04907.
 
