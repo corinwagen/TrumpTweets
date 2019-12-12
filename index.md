@@ -23,4 +23,4 @@ The big questions we want to answer are:
 
 For a more in-depth introduction, please see the [introduction](intro.html) above. For our full results, please see our final [analysis](analysis.html). 
 
-*Corin Wagen, Priya Veeraraghavan, Aaron Jacobson, and Hayden Joy*
+*Corin Wagen, Priya Veeraraghavan, Aaron Jacobson, and Hayden Joy (Group 2)*
