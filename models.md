@@ -70,6 +70,7 @@ The percent dropout at each layer was another hyperparameter that was systematic
 Individual predictor sets were fit on aggregated stock market data from the United States or from China. Performance on the American stocks, both classification and regression, was generally poor for all predictor sets (Figure 1).
 
 ![](assets/img/american_stocks1.single_predictor_set.regressor_pct_improvement.png)
+
 ![](assets/img/american_stocks1.single_predictor_set.classifier_auc.png)
 
 **Figure 4** Effect of Different Predictor Sets on Modelling American Stock Volatility
