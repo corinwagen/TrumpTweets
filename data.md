@@ -103,7 +103,7 @@ To address this, we will investigate a model that combines topic modeling with w
 
 ##### Sentiment Analysis: 
 
-Using 
+Sentiment analysis for each tweet was retrieved using the Dandelion API for Semantic Text Analyis (https://dandelion.eu/). Each tweet was assigned a floating point number between -1.0 (negative) and 1.0 (positive), with 0.0 as neutral sentiment. Missing data was considered neutral.
 
 #### Stocks:
 
