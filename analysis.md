@@ -10,7 +10,7 @@ Several top-performing models were selected for further analysis, in order to ob
 Although the predictive power of these models is, in general, small, 
 we feel that any ability to reproducibly explain the massive complexity of the global stock market is exciting and worthy of further study. 
 
-###### Stocks:
+##### Stocks:
 
 The top-performing model for predicting Chinese stocks used Trump's frequent Twitter mentions in combination with a 5-day lookback to lower the mean absolute error by approximately 18%
 (relative to a *y*-randomized model). 
@@ -28,7 +28,7 @@ but more research and experimentation is needed before conclusive results can be
 
 **Figure 2**: A sample tweet (@MariaBartiromo) which might impact Chinese stock volatility
 
-###### Gold Prices:
+##### Gold Prices:
 
 As a safe alternative to stocks or bonds which holds its value even through total state collapse, the price of gold historically tracks with economic uncertainty. 
 The top-performing model for predicting gold prices was based on topic analysis done by `word2vec` (as described previously), which permitted facile extraction of the most important topics 
@@ -47,7 +47,7 @@ Both of these topics would be expected to impact economic uncertainty significan
 
 **Figure 4**: A sample tweet about North Dakota which might affect the economy
 
-###### Ruble Exchange Rate:
+##### Ruble Exchange Rate:
 
 The top-performing model for predicting volatility in the ruble exchange rate also used `word2vec` predictors. 
 In contrast to the gold model, there were no "standout" predictors for the ruble variance model: 
@@ -61,7 +61,7 @@ Accordingly, these predictors seem reasonable for describing volatility in the r
 
 **Figure 5**: Top Predictors of Ruble/Dollar Exchange Rate Variance
 
-##### Conclusions:
+#### Conclusions:
 
 The original goal of this project was to examine how Donald Trump's tweets impacted market confidence, both domestically and in international markets. 
 These results indicate that a small but non-zero amount of market variance across diverse indices can be explained by Trump's tweets, 
