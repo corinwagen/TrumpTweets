@@ -15,7 +15,7 @@ which can have concomitant (and drastic) effects on domestic and foreign markets
 
 A few instances of this are shown below: 
 
-![](stocks/p3.png)
+![](stocks/p3.png){:width="600px"}
 
 **Figure 2**: [NBC headline](https://www.cnbc.com/2019/08/23/trump-says-hes-ordering-american-companies-to-immediately-start-looking-for-an-alternative-to-china.html) from August 23rd, 2019
 
@@ -24,7 +24,7 @@ Then at 9:59 the President tweeted "Our great American companies are hereby orde
 According to CNBC, shortly thereafter "the Dow Jones Industrial Average fell more than 435 points, or 1.6%, while the S&P 500 slid 1.7% and the Nasdaq Composite dove 2%" (Figure 2).
 This demonstrates the virtually instant effect that Trump's utterances can have on market confidence. 
 
-![](stocks/p4.png)
+![](stocks/p4.png){:width="600px"}
 
 **Figure 3**: [MarketWatch headline](https://www.marketwatch.com/story/dow-surges-350-points-as-trump-tweets-of-extended-meeting-with-president-xi-on-trade-2019-06-18) from June 18th, 2019
 
@@ -56,6 +56,7 @@ approach (although we did not ultimately employ this precise method) (Ref. 2).
 
 Another approach which we used to model Twitter data was sentiment analysis, which attempts to classify the emotions behind a piece of text. Passonneau and coworkers employed
 this strategy to categorize tweets into positive, negative, or neutral, which is akin to the one-dimensional sentiment response variable we used (Ref. 3).  
+
 Sentiment analysis has also been used to train a SVM to predict a given company's stock prices based on tweets about that company, with moderate success (Ref. 4). 
 (Notably, there was found to be a sizeable delay between tweets about a company and the corresponding stock changes, which emphasizes the importance of lookback predictors). 
 A related paper which used randomly-sampled tweets to predict overall market performance (more akin to this project) also used various forms of sentiment analysis to describe their tweets (Ref. 5.).
@@ -65,7 +66,7 @@ A related paper which used randomly-sampled tweets to predict overall market per
 The log-normal description of stocks employed here was adapted from Blyth's *Introduction to Quantitative Finance* (Ref. 6).
 Additional theoretical support for our approach came from Blitzstein and Hwang's *Introduction to Probability* (Ref. 7).
 
-Our approach to modelling stocks with moving averages was informed by Malcius's review the use of moving averages in finance (Ref. 8).
+Our approach to modelling stocks with moving averages was informed by Malcius's review on the use of moving averages in finance (Ref. 8).
 
 #### References: 
 

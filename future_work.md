@@ -6,9 +6,8 @@ filename: future_work.md
 
 #### Future Work:
 
-Although the initial results are promising, there is much that could be done to improve the quality of these data and strengthen the conclusions. 
-
-Here are just a few of the many ideas we've considered over the course of this project:
+Although the initial results are promising, there is much that could be done to improve the quality of these data and strengthen the conclusions.  
+Presented on this page are just a few of the many ideas we've considered over the course of this project. 
 
 ##### Better and More Random Stock Selection
 

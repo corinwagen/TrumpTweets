@@ -103,7 +103,8 @@ To address this, we will investigate a model that combines topic modeling with w
 
 ##### Sentiment Analysis: 
 
-Sentiment analysis for each tweet was retrieved using the Dandelion API for Semantic Text Analyis (https://dandelion.eu/). Each tweet was assigned a floating point number between -1.0 (negative) and 1.0 (positive), with 0.0 as neutral sentiment. Missing data was considered neutral.
+Sentiment analysis for each tweet was retrieved using the [Dandelion API for Semantic Text Analysis](https://dandelion.eu/). 
+Each tweet was assigned a floating point number between -1.0 (negative) and 1.0 (positive), with 0.0 as neutral sentiment. Missing data was considered neutral.
 
 #### Stocks:
 
@@ -115,7 +116,7 @@ These stocks were selected based on [reported sensitivity](https://www.investors
 to US/China foreign policy. 
 
 ##### American Stocks: 
-American stocks were selected on the basis of reported sensitivity to the US/China trade ware ([source](https://www.cbsnews.com/news/us-china-tariffs-5-american-industries-hit-hardest-by-president-trumps-u-s-china-trade-war/), [source](https://www.kiplinger.com/slideshow/investing/T052-S001-14-stocks-already-hurt-by-president-trump-tariffs/index.html)).
+American stocks were selected on the basis of reported sensitivity to the US/China trade war ([source](https://www.cbsnews.com/news/us-china-tariffs-5-american-industries-hit-hardest-by-president-trumps-u-s-china-trade-war/), [source](https://www.kiplinger.com/slideshow/investing/T052-S001-14-stocks-already-hurt-by-president-trump-tariffs/index.html)).
 
 By category, the stocks selected are:
 
